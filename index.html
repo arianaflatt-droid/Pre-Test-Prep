@@ -2283,7 +2283,7 @@ function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 var SKI={};SK.forEach(function(s,i){s.i=i;SKI[s.id]=s});
 var NQ=10,XPMAX=25,UPBAND=0;
 var DB={roster:ld('sq_roster2',[]),prog:ld('sq_prog2',{}),done:ld('sq_done2',{}),base:ld('sq_base',''),seen:ld('sq_seen',{}),last:ld('sq_last2',''),mute:ld('sq_mute',false),read:ld('sq_read',null),lastq:ld('sq_lastq',''),outbox:ld('sq_outbox',[])};
-var CUR=null,RUN=null,VIEW='home',TMP=null,DEL=-1,CLR=false,DRAFT={n:'',t:'',f:'',i:''};
+var CUR=null,RUN=null,VIEW='home',TMP=null,DEL=-1,CLR=false,DRAFT={n:'',l:'',t:'',f:'',i:''};
 function save(){sv('sq_roster2',DB.roster);sv('sq_prog2',DB.prog);sv('sq_done2',DB.done);sv('sq_base',DB.base);sv('sq_seen',DB.seen);sv('sq_last2',DB.last);sv('sq_mute',DB.mute);sv('sq_read',DB.read);sv('sq_lastq',DB.lastq);sv('sq_outbox',DB.outbox);if(typeof CL!=='undefined'&&CL.teacher)cloudSoon()}
 function pkey(st){return st.pv?'pv:'+st.name:st.name}
 function Pg(st){var k=pkey(st);return DB.prog[k]||(DB.prog[k]={xp:0})}
@@ -2420,15 +2420,19 @@ function matchItem(it){var c=it.code.toUpperCase(),i,j,sc;
  for(i=0;i<SK.length;i++)if(SK[i].codes)for(j=0;j<SK[i].codes.length;j++){sc=SK[i].codes[j];if(c.indexOf(sc+'.')===0||sc.indexOf(c+'.')===0)return SK[i].id}
  var lower=(it.desc||'').toLowerCase(),best=null,bs=0;SK.forEach(function(s){var q=0;s.kw.forEach(function(k){if(lower.indexOf(k)>=0)q+=k.length});if(q>bs){bs=q;best=s.id}});return bs>=9?best:null}
 function readIt(){if(!DRAFT.n.trim()){toast('Type the student’s name first.');return}var items=parseReport(DRAFT.t);if(!items.length){toast('I could not find any standards. Paste the whole report, including the standard codes.');return}
- items.forEach(function(it){it.sid=matchItem(it);it.inc=!!it.sid&&/persistent|watch/i.test(it.st)});TMP={name:DRAFT.n.trim(),items:items};render()}
+ items.forEach(function(it){it.sid=matchItem(it);it.inc=!!it.sid&&/persistent|watch/i.test(it.st)});TMP={name:DRAFT.n.trim(),label:(DRAFT.l||'').trim().slice(0,60),items:items};render()}
 function makeQuiz(){var rows=TMP.items.map(function(it,i){return {code:it.code,t:it.desc,st:it.st,m:it.m,cause:it.cause,sid:$('sel'+i).value||null,inc:$('ck'+i).checked}});
  var s={name:TMP.name,rows:rows,man:[],read:false},n=skillsOf(s).length,hi=0,lo=0;rows.forEach(function(r){if(r.inc&&r.sid&&SKI[r.sid]&&SKI[r.sid].g==='R'){var gg=gradeOf(r.code);if(gg>=6)hi++;else if(gg>=3)lo++}});s.upper=hi>lo;var ea=0;rows.forEach(function(r){if(r.inc&&r.sid&&SKI[r.sid]&&SKI[r.sid].g==='E')ea=Math.max(ea,Math.min(2,gradeOf(r.code)))});s.early=ea;if(!n){toast('Check at least one standard that has a practice stop.');return}
- var ex=DB.roster.filter(function(r){return r.name.toLowerCase()===s.name.toLowerCase()})[0];if(ex){ex.rows=rows;ex.man=[];ex.upper=s.upper;ex.early=s.early}else{s.themes=[];DB.roster.push(s)}
- save();TMP=null;DRAFT.n='';DRAFT.t='';render();toast('Quiz ready')}
+ s.themes=sameNameThemes(s.name);s.label=TMP.label||autoLabel(s.name);DB.roster.push(s);
+ save();TMP=null;DRAFT.n='';DRAFT.l='';DRAFT.t='';render();toast('Quiz ready')}
+function sameNameThemes(nm){var e=DB.roster.filter(function(r){return r.name.toLowerCase()===nm.toLowerCase()&&(r.themes||[]).length})[0];return e?e.themes.slice():[]}
+function autoLabel(nm){var c=DB.roster.filter(function(r){return r.name.toLowerCase()===nm.toLowerCase()}).length;return c?'Test '+(c+1):''}
+function setLabel(si,v){DB.roster[si].label=v.trim().slice(0,60);save()}
+function dn(s){return s.name+(s.label?' · '+s.label:'')}
 function cancelTmp(){TMP=null;render()}
 function opts(sel){var h='<option value=""'+(!sel?' selected':'')+'>⚠ No practice yet</option>';[0,'E',3,4,5,6,7,8,'R'].forEach(function(g){h+='<optgroup label="'+(g==='E'?'Pictures: kindergarten to grade 2':g==='R'?'Reading and language, grades 3-8':g?'Grade '+g+' math':'Kindergarten')+'">';SK.forEach(function(s){if(s.g===g)h+='<option value="'+s.id+'"'+(sel===s.id?' selected':'')+'>'+(cl(s)?cl(s)+' · ':'')+esc(s.name)+'</option>'});h+='</optgroup>'});return h}
 function vTeacher(){var h=topbar()+'<div class="tpage"><h2 class="tt">Teacher setup</h2>'+accountCard();
- h+='<section class="card"><h3>1. Add a student’s quiz</h3><label class="lab" for="sn">Student name</label><input id="sn" class="inp full" value="'+esc(DRAFT.n)+'" oninput="DRAFT.n=this.value" placeholder="First name">'+
+ h+='<section class="card"><h3>1. Add a student’s quiz</h3><label class="lab" for="sn">Student name</label><input id="sn" class="inp full" value="'+esc(DRAFT.n)+'" oninput="DRAFT.n=this.value" placeholder="First name"><label class="lab" for="sl">Test name (optional)</label><input id="sl" class="inp full" value="'+esc(DRAFT.l||'')+'" oninput="DRAFT.l=this.value" placeholder="Reading test, Math check, Week 3…">'+
  '<label class="lab" for="rp">Paste the skill-gap report</label><textarea id="rp" class="inp full ta" rows="7" oninput="DRAFT.t=this.value" placeholder="Paste the whole report here. Standards, status, and misses are read automatically.">'+esc(DRAFT.t)+'</textarea>'+
  '<button class="btn" onclick="readIt()">Read the report</button>';
  if(TMP){h+='<div class="map"><h3>Check what I found for '+esc(TMP.name)+'</h3><p class="sm">The quiz has '+NQ+' questions. Standards missed more often get more questions. Untick any you do not want.</p>';
@@ -2437,7 +2441,7 @@ function vTeacher(){var h=topbar()+'<div class="tpage"><h2 class="tt">Teacher se
  h+='</section><section class="card"><h3>2. Students</h3>';
  if(!DB.roster.length)h+='<p class="sm">No quizzes yet. Add one above.</p>';
  DB.roster.forEach(function(s,si){var c=counts(s),ids=Object.keys(c),n=ids.length;
-  h+='<div class="stu"><div class="sh"><input class="inp nm" value="'+esc(s.name)+'" onchange="rename('+si+',this.value)" aria-label="Student name"><span class="chip">'+NQ+' questions</span>'+resChip(s)+'</div>'+
+  h+='<div class="stu"><div class="sh"><input class="inp nm" value="'+esc(s.name)+'" onchange="rename('+si+',this.value)" aria-label="Student name"><span class="chip">'+NQ+' questions</span>'+resChip(s)+'</div><input class="inp full" style="margin:6px 0" value="'+esc(s.label||'')+'" placeholder="Test name (optional), like Reading, Oct 16" onchange="setLabel('+si+',this.value)" aria-label="Test name">'+
   (n?'<div class="chips">'+ids.sort(function(a,b){return SKI[a].i-SKI[b].i}).map(function(id){return '<span class="chip">'+esc(cl(SKI[id])||SKI[id].name)+' × '+c[id]+'</span>'}).join('')+'</div>':'<p class="warn">No skills selected.</p>')+
   '<label class="ck"><input type="checkbox" '+(s.read?'checked':'')+' onchange="setSRead('+si+',this.checked)"> Start with “Read to me” on</label>'+(ids.some(function(id){return SKI[id].g==='R'})?'<label class="ck">Reading level <select class="sel" onchange="setUpper('+si+',this.value===\'1\')" aria-label="Reading level"><option value="0"'+(s.upper?'':' selected')+'>Grades 3-5</option><option value="1"'+(s.upper?' selected':'')+'>Grades 6-8</option></select></label>':'')+(ids.some(function(id){return SKI[id].g==='E'})?'<label class="ck">Grade for picture questions <select class="sel" onchange="setEarly('+si+',+this.value)" aria-label="Grade for picture questions"><option value="0"'+(!s.early?' selected':'')+'>Kindergarten</option><option value="1"'+(s.early===1?' selected':'')+'>Grade 1</option><option value="2"'+(s.early===2?' selected':'')+'>Grade 2</option></select></label>':'')+
   '<details><summary>Interests ('+((s.themes||[]).length)+')</summary><div class="cks">'+THEMES.map(function(t,i){return '<label class="ck"><input type="checkbox" '+((s.themes||[]).indexOf(i)>=0?'checked':'')+' onchange="toggleTheme('+si+','+i+',this.checked)"> '+t.icon+' '+esc(t.name)+'</label>'}).join('')+'</div></details>'+
@@ -2467,14 +2471,14 @@ function link(s){var b=DB.base||location.href.split('#')[0];return b+'#c='+encod
 function cloudLink(s){var b=(location.protocol==='http:'||location.protocol==='https:')?location.origin+location.pathname:(DB.base||location.href).split('#')[0].split('?')[0];return b+'?q='+s.qid}
 function copyLink(si){var s=DB.roster[si];if(CL.teacher){ensureIds();clearTimeout(CL.t);cloudPush();copy(cloudLink(s),'Student link copied');return}if(!DB.base)toast('Tip: paste this page’s web address under Sharing so links open the right page.');copy(link(s),'Link copied')}
 function copyCode(si){copy(encode(DB.roster[si]),'Code copied')}
-function copyAll(){if(CL.teacher){ensureIds();clearTimeout(CL.t);cloudPush()}copy(DB.roster.filter(function(s){return skillsOf(s).length}).map(function(s){return s.name+'\t'+(CL.teacher?cloudLink(s):encode(s))}).join('\n'),CL.teacher?'All links copied':'All codes copied')}
+function copyAll(){if(CL.teacher){ensureIds();clearTimeout(CL.t);cloudPush()}copy(DB.roster.filter(function(s){return skillsOf(s).length}).map(function(s){return dn(s)+'\t'+(CL.teacher?cloudLink(s):encode(s))}).join('\n'),CL.teacher?'All links copied':'All codes copied')}
 function makeFollow(){var t=DRAFT.f,m=t.match(/follow-up code:\s*([^\n\r]+)/i),st=m?decode(m[1]):null;
  if(!st){var ms=t.match(/missed skills:\s*([^\n\r]+)/i),nm=t.match(/student:\s*([^\n\r]+)/i);if(ms&&nm){var ids=[];SK.forEach(function(s){if(s.codes&&s.codes.some(function(c){return ms[1].toUpperCase().indexOf(c)>=0})&&ids.indexOf(s.id)<0)ids.push(s.id)});if(ids.length)st={name:nm[1].trim(),rows:[],man:ids,wt:{},read:false}}}
  if(!st){toast('I could not find a follow-up code or missed skills in that note.');return}
  var base=st.name.replace(/ \(follow-up.*\)$/,''),k=1,nn;do{nn=base+' (follow-up'+(k>1?' '+k:'')+')';k++}while(DB.roster.some(function(r){return r.name===nn}));
  st.name=nn;DB.roster.push(st);DRAFT.f='';save();render();toast('Follow-up quiz added for '+base)}
 function addMan(){var nm=$('mn').value.trim();if(!nm){toast('Type a name first.');return}var ids=[].slice.call(document.querySelectorAll('.mck:checked')).map(function(c){return c.value});if(!ids.length){toast('Check at least one skill.');return}
- var ex=DB.roster.filter(function(s){return s.name.toLowerCase()===nm.toLowerCase()})[0];if(ex){ex.man=ids;ex.rows=[]}else DB.roster.push({name:nm,rows:[],man:ids,wt:{},read:false});save();render();toast('Saved')}
+ DB.roster.push({name:nm,rows:[],man:ids,wt:{},read:false,themes:sameNameThemes(nm),label:autoLabel(nm)});save();render();toast('Saved')}
 
 /* ---------- Cloud (Firebase): teacher accounts, student links, results ---------- */
 var CL={ok:false,fail:false,user:null,teacher:false,status:'',err:'',res:{},hash:{},qh:{},known:{},busy:false,dirty:false,t:null,after:null};
@@ -2505,7 +2509,7 @@ function resChip(s){if(!CL.teacher)return '';var r=lastRes(s);return r?'<span cl
 function resultsCard(){if(!CL.teacher)return '';var rows=DB.roster.map(function(s,si){return {s:s,si:si,r:lastRes(s)}}).filter(function(x){return x.s.qid&&skillsOf(x.s).length});
  var h='<section class="card"><h3>Results</h3><p class="sm">When a student finishes from their link, their score shows up here.</p><button class="btn sm" onclick="loadResults()">Refresh results</button>';
  if(!rows.length)h+='<p class="sm">No quizzes yet.</p>';
- rows.forEach(function(x){var r=x.r;h+='<div class="stu"><div class="sh"><b>'+esc(x.s.name)+'</b>'+(r?'<span class="chip st-improving">✓ '+(+r.score||0)+'/'+(+r.need||0)+' · '+(+r.xp||0)+' XP</span>':'<span class="chip">Not finished</span>')+'</div>';
+ rows.forEach(function(x){var r=x.r;h+='<div class="stu"><div class="sh"><b>'+esc(dn(x.s))+'</b>'+(r?'<span class="chip st-improving">✓ '+(+r.score||0)+'/'+(+r.need||0)+' · '+(+r.xp||0)+' XP</span>':'<span class="chip">Not finished</span>')+'</div>';
   if(r){var ms=(r.missed||[]).filter(function(id){return SKI[id]});h+='<p class="sm">'+esc(r.date||'')+'</p>'+(ms.length?'<div class="chips">'+ms.map(function(id){return '<span class="chip">'+esc(cl(SKI[id])||SKI[id].name)+'</span>'}).join('')+'</div><div class="btns"><button class="btn sm" onclick="followFromRes('+x.si+')">Make follow-up quiz</button></div>':'<p class="sm">No missed skills.</p>')}
   h+='</div>'});
  return h+'</section>'}
