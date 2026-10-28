@@ -219,6 +219,19 @@ body:before{content:"";position:fixed;left:0;right:0;bottom:0;height:110px;point
 .lockmsg{background:var(--tint);border:2px dashed var(--coral);border-radius:14px;padding:8px 12px;margin:10px 0;font-weight:600}.lockmsg.ok{border-style:solid;border-color:var(--kelp)}
 .opts.locked .opt{opacity:.55}
 
+.dotplot,.stemplot{background:var(--tint);border:2px solid var(--line);border-radius:14px;padding:10px 12px;margin:8px 0;overflow-x:auto}
+.dotplot b,.stemplot b{display:block;margin-bottom:6px}
+.dpcols{display:flex;gap:4px;align-items:flex-end}
+.dpc{display:flex;flex-direction:column;align-items:center;min-width:36px}
+.dps{display:flex;flex-direction:column-reverse;gap:3px;min-height:20px;margin-bottom:4px}
+.dpdot{display:block;width:16px;height:16px;border-radius:50%;background:var(--coral)}
+.dpc>span{border-top:3px solid var(--ink);width:100%;text-align:center;padding-top:2px;font-weight:600}
+.stemplot table,.ftab{border-collapse:collapse;margin:4px 0}
+.stemplot th,.stemplot td,.ftab th,.ftab td{border:2px solid var(--line);padding:4px 12px;text-align:center}
+.stemplot td:first-child{font-weight:700;border-right:3px solid var(--ink)}
+.ftab{background:var(--tint);margin:8px 0}.ftab caption{font-weight:700;padding:4px}
+.scat{width:100%;max-width:340px;display:block;margin:8px auto;color:var(--ink)}
+
 </style>
 </head>
 <body>
@@ -2604,6 +2617,89 @@ PLS('r_res_eval','Judging sources: reliability, bias, and citations','🧐',['6.
 '12A':'r_res_q','12B':'r_res_plan','12C':'r_res_q','12D':'r_res_gather','12E':'r_res_src','12F':'r_res_use','12G':'r_res_use','12H':'r_res_eval','12HI':'r_res_eval','12HII':'r_res_eval','12I':'r_res_eval','12J':'r_res_use'};
  [6,7,8].forEach(function(g){Object.keys(M).forEach(function(k){addCodes(M[k],[g+'.'+k])})})})();
 
+/* ---------- Math TEKS (Grade 3 and Grade 5, adopted 2012) + new Grade 5 data skill ---------- */
+function d3(){return '<span class="dpdot"></span>'}
+function dotPlotHtml(title,vals,counts){var h='<div class="dotplot"><b>'+title.replace(/ \(each dot[^)]*\)/,'')+'</b><div class="keyline">'+(title.match(/\(each dot[^)]*\)/)||[''])[0].replace(/[()]/g,'')+'</div><div class="dpcols">';vals.forEach(function(v,i){h+='<div class="dpc"><div class="dps">'+new Array(counts[i]+1).join(d3())+'</div><span>'+v+'</span></div>'});return h+'</div></div>'}
+function stemHtml(title,stems,leaves,key){var h='<div class="stemplot"><b>'+title+'</b><table><tr><th>Stem</th><th>Leaves</th></tr>';stems.forEach(function(s,i){h+='<tr><td>'+s+'</td><td>'+leaves[i].join(' ')+'</td></tr>'});return h+'</table><div class="keyline">'+key+'</div></div>'}
+function freqHtml(title,cats,counts){var h='<table class="ftab"><caption>'+title+'</caption><tr><th>Category</th><th>Frequency</th></tr>';cats.forEach(function(c,i){h+='<tr><td>'+c+'</td><td>'+counts[i]+'</td></tr>'});return h+'</table>'}
+function scatterSvg(pts,xl,yl,max){var W=260,H=200,p=34,sx=function(x){return p+x*(W-p-10)/max},sy=function(y){return H-p-y*(H-p-10)/max},s='<svg class="scat" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Scatterplot of '+yl+' versus '+xl+'">';
+ for(var i=0;i<=max;i+=1){s+='<line x1="'+sx(i)+'" y1="'+sy(0)+'" x2="'+sx(i)+'" y2="'+sy(max)+'" stroke="currentColor" opacity=".15"/><line x1="'+sx(0)+'" y1="'+sy(i)+'" x2="'+sx(max)+'" y2="'+sy(i)+'" stroke="currentColor" opacity=".15"/><text x="'+sx(i)+'" y="'+(H-p+14)+'" font-size="10" text-anchor="middle" fill="currentColor">'+i+'</text><text x="'+(p-6)+'" y="'+(sy(i)+3)+'" font-size="10" text-anchor="end" fill="currentColor">'+i+'</text>'}
+ s+='<line x1="'+sx(0)+'" y1="'+sy(0)+'" x2="'+sx(max)+'" y2="'+sy(0)+'" stroke="currentColor"/><line x1="'+sx(0)+'" y1="'+sy(0)+'" x2="'+sx(0)+'" y2="'+sy(max)+'" stroke="currentColor"/>';
+ pts.forEach(function(q){s+='<circle cx="'+sx(q[0])+'" cy="'+sy(q[1])+'" r="5" fill="#ff7a59"/>'});
+ s+='<text x="'+(W/2)+'" y="'+(H-4)+'" font-size="11" text-anchor="middle" fill="currentColor">'+xl+'</text><text x="9" y="'+(H/2)+'" font-size="11" text-anchor="middle" fill="currentColor" transform="rotate(-90 9 '+(H/2)+')">'+yl+'</text></svg>';return s}
+function distinctWrongs(ans,cands,fmt){var out=[],seen={};seen[fmt?fmt(ans):ans]=1;cands.forEach(function(c){var k=fmt?fmt(c):c;if(!seen[k]&&c!==null&&c!==undefined&&!(typeof c==='number'&&(c<0||isNaN(c)))){seen[k]=1;out.push(c)}});var n=1;while(out.length<3){var c=typeof ans==='number'?ans+n:ans;n++;var k=fmt?fmt(c):c;if(!seen[k]){seen[k]=1;out.push(c)}}return out.slice(0,3)}
+S('g5_data',5,'Data: dot plots, tables, and graphs','📊',['dot plot','stem-and-leaf','frequency table','scatterplot','bar graph','data','or more','at least','one- and two-step problems using data'],
+'Read the title and labels first. For “5 or MORE,” count EVERY category from 5 up (5, 6, 7…) and add them. For a fraction, put that sum over the TOTAL, then simplify. For stem-and-leaf plots, the stem is the tens digit and the leaf is the ones digit.',
+function(){var t=Math.random();
+ if(t<.4){var vals=[3,4,5,6,7,8].slice(0,P([5,6])),counts=vals.map(function(){return R(1,5)}),tot=counts.reduce(function(a,b){return a+b},0),tp=P([['books read this month','students'],['goals scored this season','players'],['pets owned','students'],['minutes of practice (in tens)','students']]),th=vals[R(2,vals.length-2)],mode=P(['more','fewer']),sel=vals.map(function(v,i){return mode==='more'?(v>=th?counts[i]:0):(v<=th?counts[i]:0)}).reduce(function(a,b){return a+b},0),
+  plot=dotPlotHtml(tp[0]+' (each dot = 1 '+tp[1].slice(0,-1)+')',vals,counts),ti=vals.indexOf(th),word=mode==='more'?'or more':'or fewer',other=tot-sel;
+  if(Math.random()<.5){var wr=distinctWrongs(sel,[counts[ti],tot,other,sel+counts[ti],sel-1,sel+1]);
+   return O('Use the dot plot.'+plot+'How many '+tp[1]+' have '+th+' '+word+'?',String(sel),'Add every category from '+th+' '+(mode==='more'?'up':'down')+': '+vals.filter(function(v){return mode==='more'?v>=th:v<=th}).map(function(v){return counts[vals.indexOf(v)]}).join(' + ')+' = '+sel+'.',wr.map(function(w,i){return [String(w),w===counts[ti]?'That is only the dots at '+th+'. “'+word+'” includes more than one category.':w===tot?'That is the total of all the dots. Add only the categories that fit “'+word+'”.':'Count every dot in the categories that fit “'+word+'”, then add them.']}))}
+  var g=gcd(sel,tot),ans=frs(sel/g,tot/g),ansK=sel/g+'/'+tot/g,fm2=function(n,d){var g2=gcd(n,d);return g2&&d?(n/g2)+'/'+(d/g2):'0/1'},cs=[[counts[ti],tot],[other,tot],[tot-counts[ti],tot],[sel,tot+counts[ti]],[sel,tot+1],[counts[ti]+other,tot+counts[ti]]].filter(function(c){return c[0]<c[1]}),seenF={};seenF[ansK]=1;var wf=[];
+  cs.forEach(function(c){var k=fm2(c[0],c[1]);if(!seenF[k]&&c[0]>0&&wf.length<3){seenF[k]=1;wf.push(c)}});var kx=1;while(wf.length<3){var c2=[sel+kx,tot+kx];kx++;var k2=fm2(c2[0],c2[1]);if(!seenF[k2]){seenF[k2]=1;wf.push(c2)}}
+  var fac=function(c){var g3=gcd(c[0],c[1]);return frs(c[0]/g3,c[1]/g3)};
+  return O('Use the dot plot.'+plot+'What fraction of the '+tp[1]+' have '+th+' '+word+'? Write it in simplest form.',ans,'Total dots: '+tot+'. Dots for '+th+' '+word+': '+sel+'. '+sel+'/'+tot+' simplifies to '+ansK+'.',wf.map(function(c,i){return [fac(c),i===0&&c[0]===counts[ti]?'That uses only the dots at '+th+'. Add every category that fits “'+word+'”.':'Count every dot that fits “'+word+'” for the top number, and all dots for the bottom number. Then simplify.']}))}
+ if(t<.6){var stems=[1,2,3,4],lv=stems.map(function(){var n=R(2,4),a=[];for(var i=0;i<n;i++)a.push(R(0,9));return a.sort(function(x,y){return x-y})}),all=[];stems.forEach(function(s,i){lv[i].forEach(function(l){all.push(s*10+l)})});var mn=Math.min.apply(null,all),mxv=Math.max.apply(null,all),kind=P(['range','count']);
+  var plot2=stemHtml('Number of points scored in games',stems,lv,'Key: 2 | 3 means 23 points');
+  if(kind==='range'){var d=mxv-mn,wr2=distinctWrongs(d,[mxv,mn,mxv+mn,d+10,d-10,d+1]);return O('Use the stem-and-leaf plot.'+plot2+'What is the difference between the greatest and least number of points?',String(d),'Greatest: '+mxv+'. Least: '+mn+'. '+mxv+' − '+mn+' = '+d+'.',wr2.map(function(w){return [String(w),'Read each stem and leaf as a number, then subtract the least from the greatest.']}))}
+  var th2=P([20,25,30,35]),cnt=all.filter(function(v){return v>th2}).length,wr3=distinctWrongs(cnt,[all.filter(function(v){return v>=th2}).length,all.length,all.filter(function(v){return v<th2}).length,cnt+1,cnt-1]);
+  return O('Use the stem-and-leaf plot.'+plot2+'How many games had MORE than '+th2+' points?',String(cnt),'Read each value and count the ones greater than '+th2+': '+cnt+'.',wr3.map(function(w){return [String(w),'Turn each stem and leaf into a number, then count only the values greater than '+th2+'.']}))}
+ if(t<.78){var cats=shuf(['soccer','basketball','swimming','art','chess','dance']).slice(0,4),cs2=cats.map(function(){return R(3,15)}),tb=freqHtml('Favorite activity',cats,cs2),k=P(['two','more','total']);
+  if(k==='two'){var a=R(0,3),b=(a+R(1,3))%4,s=cs2[a]+cs2[b],wr4=distinctWrongs(s,[cs2[a],cs2[b],s+cs2[(b+1)%4],Math.abs(cs2[a]-cs2[b]),s+1]);return O('Use the frequency table.'+tb+'How many students chose '+cats[a]+' OR '+cats[b]+'?',String(s),cs2[a]+' + '+cs2[b]+' = '+s+'.',wr4.map(function(w){return [String(w),'Add the frequencies for both activities.']}))}
+  var mxI=cs2.indexOf(Math.max.apply(null,cs2)),mnI=cs2.indexOf(Math.min.apply(null,cs2)),dd=cs2[mxI]-cs2[mnI];if(mxI===mnI)return O('Use the frequency table.'+tb+'What is the total number of students?',String(cs2.reduce(function(x,y){return x+y},0)),'Add all the frequencies.',[[String(cs2[0]),'Add every frequency.'],[String(cs2[0]+cs2[1]),'Add every frequency.'],['0','Add every frequency.']]);
+  if(k==='more'){var wr5=distinctWrongs(dd,[cs2[mxI],cs2[mnI],cs2[mxI]+cs2[mnI],dd+1,dd-1]);return O('Use the frequency table.'+tb+'How many MORE students chose '+cats[mxI]+' than '+cats[mnI]+'?',String(dd),cs2[mxI]+' − '+cs2[mnI]+' = '+dd+'.',wr5.map(function(w){return [String(w),'To find how many more, subtract the smaller frequency from the larger.']}))}
+  var tt=cs2.reduce(function(x,y){return x+y},0),wr6=distinctWrongs(tt,[tt-cs2[0],cs2[mxI],tt+1,tt-1,tt+10]);return O('Use the frequency table.'+tb+'What is the total number of students surveyed?',String(tt),'Add all the frequencies: '+cs2.join(' + ')+' = '+tt+'.',wr6.map(function(w){return [String(w),'Add every frequency in the table.']}))}
+ if(t<.9){var sc=P([2,5]),cats2=shuf(['Mon','Tue','Wed','Thu','Fri']).slice(0,4),v2=cats2.map(function(){return sc*R(2,8)}),i1=v2.indexOf(Math.max.apply(null,v2)),i2=v2.indexOf(Math.min.apply(null,v2));if(i1===i2)v2[i1]+=sc;i1=v2.indexOf(Math.max.apply(null,v2));i2=v2.indexOf(Math.min.apply(null,v2));
+  var df=v2[i1]-v2[i2],wr7=distinctWrongs(df,[v2[i1],v2[i2],v2[i1]+v2[i2],df+sc,df-sc]);return O('Read the bar graph. Each step on the scale is '+sc+'.'+gbar('Books checked out',cats2,v2)+'How many MORE books were checked out on '+cats2[i1]+' than on '+cats2[i2]+'?',String(df),v2[i1]+' − '+v2[i2]+' = '+df+'.',wr7.map(function(w){return [String(w),'Read the number on each bar, then subtract the smaller from the larger.']}))}
+ var pts=[],used={};while(pts.length<7){var x=R(1,9),y=R(1,9),k3=x+','+y;if(!used[k3]){used[k3]=1;pts.push([x,y])}}var tx=R(3,6),ty=R(3,6),mode2=P(['x','y']),c2=pts.filter(function(q){return mode2==='x'?q[0]>tx:q[1]>ty}).length,xl='hours of practice',yl='points scored',wr8=distinctWrongs(c2,[pts.length,pts.filter(function(q){return mode2==='x'?q[0]>=tx:q[1]>=ty}).length,c2+1,c2-1,pts.length-c2]);
+ return O('Use the scatterplot. Each dot is one student.'+scatterSvg(pts,xl,yl,10)+'How many students have MORE than '+(mode2==='x'?tx+' '+xl:ty+' '+yl)+'?',String(c2),'Count the dots '+(mode2==='x'?'to the right of '+tx+' on the horizontal axis':'above '+ty+' on the vertical axis')+': '+c2+'.',wr8.map(function(w){return [String(w),'Count only the dots '+(mode2==='x'?'to the right of '+tx:'above '+ty)+'.']}))});
+
+(function(){var s=skById('g5_data');if(s)s.codes=['5.MD.B.2']})();
+
+/* 5.4B: part-part-whole equations with a letter */
+wrapGen('g5_equation',.4,function(){var a=R(12,40),b=R(12,40),g=R(10,40),w=a+b+g,nm=P(NM),k=P([['saves','spends','the rest'],['reads','reads','the rest']]);
+ var it=P([['pages','pages in a book'],['dollars','dollars']]);
+ var q=nm+' needs '+w+' '+it[0]+' in all. '+nm+' has done '+a+' on Monday and '+b+' on Tuesday. Let g be the '+it[0]+' still left to do. Which equation shows this story?',ok=w+' = '+a+' + '+b+' + g';
+ return O(q,ok,'The whole ('+w+') equals the parts added together: '+a+' + '+b+' + g. g is an unknown part, so it is added, not subtracted.',[[w+' = '+a+' + '+b+' − g','The unknown part is added to the other parts. Subtracting g would make the parts smaller than the whole.'],[w+' + '+a+' + '+b+' = g','The whole is the total. It should equal the sum of the parts.'],[w+' − '+a+' = '+b+' + g','This does not use all the parts. The whole equals all of the parts added.']])});
+
+/* 5.8C: points with half-unit coordinates and a missing vertex */
+wrapGen('g5_coord',.4,function(){var a=R(1,3),c=a+R(3,5),b=R(1,3),d=c+R(0,1),e=R(2,5)+.5,sx=d-c+a,nm=['P','Q','R','S'];
+ var f=function(x,y){return '('+x+', '+y+')'};
+ return O('Parallelogram PQRS has vertices P'+f(a,b)+', Q'+f(c,b)+', and R'+f(d,e)+'. Sides PQ and SR are parallel and equal in length. What are the coordinates of S?',f(sx,e),'PQ is horizontal and '+(c-a)+' units long, so SR is too. Move '+(c-a)+' units left from R: x = '+d+' − '+(c-a)+' = '+sx+'. S has the same y as R, which is '+e+'. S is '+f(sx,e)+'.',[[f(sx,Math.round(e+.5)),'The y-coordinate is '+e+', a half unit. Do not round it to a whole number.'],[f(e,sx),'In an ordered pair, x comes first and y comes second.'],[f(d+(c-a),e),'Move LEFT from R by the length of PQ, not right.']])});
+
+/* 5.2B: which comparison is NOT true */
+wrapGen('g5_orderdec',.35,function(){var base=R(2,7),t=[],used={};function dec(){return base+'.'+R(100,999)}
+ while(t.length<4){var x=dec(),y=dec();if(x!==y&&!used[x+y]){used[x+y]=1;t.push([x,y])}}
+ var items=t.map(function(p,i){var xv=parseFloat(p[0]),yv=parseFloat(p[1]),sym=xv>yv?'>':'<',lie=(i===0);var s=lie?(sym==='>'?'<':'>'):sym;return {txt:p[0]+' '+s+' '+p[1],ok:!lie}});
+ var bad=items[0];return O('Which comparison is NOT true?',bad.txt,'Compare digit by digit starting from the left. “'+bad.txt+'” has the wrong symbol, so it is the one that is NOT true.',items.slice(1).map(function(x){return [x.txt,'This comparison IS true. The question asks which is NOT true.']}))});
+
+/* 5.10A-F: financial literacy */
+[O('Which tax is paid on the money a person earns from a job?','income tax','Income tax is taken from the money people earn.',[['sales tax','Sales tax is added when you buy something.'],['property tax','Property tax is paid by people who own land or buildings.'],['payroll tax','Payroll tax pays for programs such as Social Security and Medicare and is taken out of paychecks. Income tax is based on the money a person earns.']]),
+O('Which tax is added to the price when you buy something at a store?','sales tax','Sales tax is added at the register.',[['income tax','Income tax is paid on earnings.'],['property tax','Property tax is paid on land or buildings.'],['payroll tax','Payroll tax is taken out of paychecks.']]),
+O('Which tax is paid by people who own a house or land?','property tax','Property tax is based on the value of land or buildings you own.',[['sales tax','Sales tax is paid when buying things.'],['income tax','Income tax is paid on earnings.'],['payroll tax','Payroll tax comes out of paychecks.']]),
+O('Maya’s paycheck shows $500 before taxes and $420 after taxes. What is $500 called?','gross income','Gross income is the amount earned before taxes and other deductions are taken out.',[['net income','Net income is what is left after taxes. That is the $420.'],['sales tax','Sales tax is paid when buying things.'],['a budget','A budget is a plan for spending and saving.']]),
+O('Which is the difference between gross income and net income?','Gross income is before taxes; net income is after taxes.','Net income is what you take home.',[['Gross income is after taxes; net income is before taxes.','It is the other way around.'],['They mean the same thing.','They are different amounts.'],['Gross income is only money you save.','Gross income is total earnings before taxes.']]),
+O('Which method of payment takes money directly out of your bank account right away?','debit card','A debit card uses money you already have in your account.',[['credit card','A credit card borrows money you must pay back later.'],['a promise to pay later','That is borrowing.'],['a coupon','A coupon lowers a price but is not a method of payment.']]),
+O('Which is an advantage of paying with a check or debit card instead of a credit card?','You spend only money you already have.','You cannot go into debt with money you already have.',[['You can borrow money without paying it back.','Borrowed money must be paid back.'],['You never have to keep a record.','You should still keep records.'],['It always earns you interest.','Debit and checks do not earn interest.']]),
+O('Which is a good way to keep financial records?','keep receipts and bank statements in one organized place','Organized records help you track spending and check for mistakes.',[['throw away every receipt','You need receipts to track spending.'],['remember everything in your head','It is easy to forget amounts.'],['share your bank password with friends','Keep private information private.']]),
+O('A family’s expenses are higher than their income this month. Which action could help balance the budget?','spend less on wants','Cutting back on wants lowers expenses.',[['spend even more on wants','That makes expenses bigger.'],['ignore the budget','Ignoring it will not fix the problem.'],['borrow money and never repay it','Borrowed money must be repaid.']]),
+O('A budget shows income of $300 and expenses of $120 + $90 + $50. How much is left?','$40','Add the expenses: 120 + 90 + 50 = 260. Then 300 − 260 = 40.',[['$260','That is the total of the expenses, not the amount left.'],['$80','Check the subtraction: 300 − 260.'],['$20','Check the subtraction: 300 − 260.']])].forEach(function(x){FP.push(x)});
+
+/* ---- Math TEKS code tables (kept separate from reading tables, because codes like 3.4B and 5.9C exist in both) ---- */
+var MTEKS={
+'3.2A':'g3_place','3.2B':'g3_place','3.2C':'g3_round','3.2D':'g3_place',
+'3.3F':'g3_equiv','3.3G':'g3_equiv','3.3H':'g3_cmpfrac',
+'3.4A':'g3_ops','3.4B':'g3_round','3.4D':'g3_mult','3.4E':'g3_mult','3.4F':'g3_mult','3.4G':'g3_mult','3.4H':'g3_div','3.4J':'g3_div','3.4K':'g3_mult',
+'3.5A':'g3_ops','3.5B':'g3_mult','3.5C':'g3_mult','3.5D':'g3_mult',
+'3.6C':'g3_area','3.6D':'g3_area','3.7B':'g3_perim','3.8A':'g3_graphs','3.8B':'g3_graphs',
+'5.2A':'g4_expanded','5.2B':'g5_orderdec','5.2C':'g5_rounddec',
+'5.3A':'g3_round','5.3B':'g4_areamodel','5.3C':'g4_remainder','5.3D':'g5_muldec','5.3E':'g5_muldec','5.3F':'g5_divdec','5.3G':'g5_divdec','5.3H':'g5_addfrac','5.3J':'g5_divunit','5.3K':'g4_adddec','5.3L':'g5_divunit',
+'5.4A':'g5_primecomp','5.4B':'g5_equation','5.4C':'g5_pattern','5.4D':'g5_pattern','5.4E':'g5_oo','5.4F':'g5_oo','5.4G':'g5_volume','5.4H':'g5_volume',
+'5.6A':'g5_volume','5.6B':'g5_volume','5.7':'g5_convert','5.7A':'g5_convert',
+'5.8A':'g5_coord','5.8B':'g5_coord','5.8C':'g5_coord',
+'5.9A':'g5_data','5.9B':'g5_data','5.9C':'g5_data',
+'5.10A':'g5_finlit','5.10B':'g5_finlit','5.10C':'g5_finlit','5.10D':'g5_finlit','5.10E':'g5_finlit','5.10F':'g5_finlit'};
+
 if(typeof module!=='undefined')module.exports={SK:SK,THEMES:THEMES,LIB:LIB,libPlan:libPlan,libOne:libOne,setTheme:setTheme,interestsToThemes:interestsToThemes,setEG:function(v){EG=v}};
 
 </script>
@@ -2760,7 +2856,7 @@ var STRE=/^(persistent|watch|improving|resolved|mastered)$/i,CODERE=/^(?:\d{1,2}
 function parseReport(txt){var lines=txt.split(/\r?\n/).map(function(l){return l.trim()}).filter(Boolean),out=[],cur=null,pend='',mode='';
  lines.forEach(function(l){
   if(STRE.test(l)){pend=l;return}
-  if(CODERE.test(l)){cur={code:l,st:pend?pend.charAt(0).toUpperCase()+pend.slice(1).toLowerCase():'',m:0,desc:'',cause:'',assigned:''};out.push(cur);pend='';mode='';return}
+  var cl=l.replace(/^(?:TEKS|TEK|Standard)\s*[:\-]?\s+/i,'');if(CODERE.test(cl)){cur={code:cl,st:pend?pend.charAt(0).toUpperCase()+pend.slice(1).toLowerCase():'',m:0,desc:'',cause:'',assigned:''};out.push(cur);pend='';mode='';return}
   if(!cur)return;pend='';
   var mm=l.match(/^missed\s+(\d+)/i);if(mm){cur.m=+mm[1];mode='meta';return}
   if(/^likely cause:/i.test(l)){cur.cause=l.replace(/^likely cause:\s*/i,'');mode='cause';return}
@@ -2772,7 +2868,9 @@ function parseReport(txt){var lines=txt.split(/\r?\n/).map(function(l){return l.
 var MATHRE=/\b(number|numbers|fraction|digit|multipl|divid|area|perimeter|angle|shape|quadrilateral|rhombus|liquid|weight|capacity|graph|data|equation|equations|expression|expressions|equivalent|algebra|algebraic|variable|inequalit|ratio|percent|rate|integer|proportion|coordinate|slope|function|linear|probability|triangle|circle|exponent|round|estimate|measure|volume|decimal|sum|product|coins|bills)/i,READRE=/\b(text|passage|read|reading|author|story|stories|poem|drama|source|sources|research|inquiry|vocabulary|sentence|word|words|question|questions|annotat|notetaking|freewrit)/i;
 function teksFind(code){for(var i=0;i<SK.length;i++)if(SK[i].codes&&SK[i].codes.indexOf(code)>=0)return SK[i].id;return null}
 function matchItem(it){var c=it.code.toUpperCase().replace(/\s+/g,''),i,j,sc,m=c.match(/^(\d{1,2}\.\d{1,2})\.?\(?([A-J])\)?(?:\.?\(?([IVX]+)\)?)?$/);
- if(m){var d=(it.desc||''),skip=MATHRE.test(d)&&!READRE.test(d);if(!skip){var id=(m[3]&&teksFind(m[1]+m[2]+m[3]))||teksFind(m[1]+m[2]);if(id)return id}}
+ if(m){var d=(it.desc||''),mathy=MATHRE.test(d),readingy=READRE.test(d),base=m[1]+m[2],full=m[3]?base+m[3]:null,rid=(full&&teksFind(full))||teksFind(base),mid=(typeof MTEKS!=='undefined'&&MTEKS[base])||null,pick;
+  if(mathy&&!readingy)pick=mid;else if(readingy&&!mathy)pick=rid;else if(rid&&mid)pick=/^[45]\./.test(base)?mid:rid;else pick=rid||mid;
+  if(pick)return pick}
  else{for(i=0;i<SK.length;i++)if(SK[i].codes&&SK[i].codes.indexOf(c)>=0)return SK[i].id;
  for(i=0;i<SK.length;i++)if(SK[i].codes)for(j=0;j<SK[i].codes.length;j++){sc=SK[i].codes[j];if(c.indexOf(sc+'.')===0||sc.indexOf(c+'.')===0)return SK[i].id}}
  var lower=(it.desc||'').toLowerCase(),best=null,bs=0,gr=m?+m[1].split('.')[0]:null,mathPath=m&&MATHRE.test(it.desc||'')&&!READRE.test(it.desc||'');SK.forEach(function(s){if(mathPath&&s.g!==gr)return;var q=0;s.kw.forEach(function(k){if(lower.indexOf(k)>=0)q+=k.length});if(q>bs){bs=q;best=s.id}});return bs>=9?best:null}
