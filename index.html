@@ -216,6 +216,9 @@ body:before{content:"";position:fixed;left:0;right:0;bottom:0;height:110px;point
 .big{font-size:2.4rem;text-align:center;letter-spacing:6px;margin:8px 0}
 .shp.sm{width:64px;height:64px;margin:2px 0}
 
+.lockmsg{background:var(--tint);border:2px dashed var(--coral);border-radius:14px;padding:8px 12px;margin:10px 0;font-weight:600}.lockmsg.ok{border-style:solid;border-color:var(--kelp)}
+.opts.locked .opt{opacity:.55}
+
 </style>
 </head>
 <body>
@@ -2286,6 +2289,321 @@ function libOne(sid,UP,themes,seenFn,avoidPid){var ti=(themes&&themes.length)?P(
  LIB.forEach(function(p){if(p.band!==(UP?1:0)||p.id===avoidPid||!p.by[sid])return;var ctx=libCtx(ti);shuf(p.by[sid]).forEach(function(a){var o=libBuild(p,a,ctx);if(!seenFn(sid,o))cands.push({pid:p.id,pass:libPass(p,ctx),o:o,sid:sid})})});
  return cands.length?P(cands):null}
 
+/* ---------- TEKS ELAR Grade 3 (2017 TEKS) coverage ---------- */
+function skById(id){for(var i=0;i<SK.length;i++)if(SK[i].id===id)return SK[i]}
+function addCodes(id,codes){var s=skById(id);if(!s)return;s.codes=(s.codes||[]).concat(codes)}
+function PLS(id,name,icon,codes,kw,trick,items){RS(id,name,icon,codes,kw,trick,function(UP){var it=P(items),how=it[3]||('The best answer is “'+it[1]+'”.');
+ return O(it[0],it[1],how,it[2].map(function(w){return [w,'Not quite. '+how]}))})}
+
+/* 3.6B: asking questions */
+PLS('r_ask','Asking questions before, during, and after reading','❓',['3.6B'],['generate questions','ask questions','questions before during and after reading','questioning','wonder'],
+'Good readers ask questions all the time. BEFORE reading, look at the title and pictures and wonder what you will learn. DURING reading, ask about what is happening or what a word means. AFTER reading, ask what else you want to know.',
+[['Before reading a book called “How Bees Make Honey,” which question could Mia ask?','How do bees turn flower nectar into honey?',['What color is the cover?','Why is the sky blue?','Who is the author’s brother?'],'A good question before reading connects to the title and shows what you hope to learn.'],
+['While reading about a character who “trudged through the snow,” which question helps the reader understand?','What does “trudged” mean, and why was walking hard?',['What is the author’s favorite color?','How many pages are left?','Why do people like winter?'],'During reading, ask about words and events you do not understand yet.'],
+['After reading a passage about the water cycle, which question helps a reader learn MORE about the topic?','How does the water cycle affect the weather where I live?',['What is the title of the passage?','How many words are in the passage?','Who typed the passage?'],'After reading, ask questions that go deeper or connect to new information.'],
+['Which question is an example of asking a question DURING reading?','Why did the character decide to leave the house?',['What do I want to eat for dinner?','Which book should I read next summer?','What time is recess?'],'During reading, you ask about what is happening in the text right now.'],
+['Before reading, Noah sees a picture of a volcano on the cover. Which question should he ask?','What will this book teach me about volcanoes?',['Why is the cover shiny?','How much did the book cost?','Where was the book printed?'],'A good question before reading connects to the cover clues and the topic.'],
+['Why do good readers ask questions about a text?','Questions help them understand the text and find out more.',['Questions make the text shorter.','Questions let them skip the hard parts.','Questions show they finished the book.'],'Asking questions deepens understanding and helps you gain information.'],
+['Read: “The little fox stopped at the edge of the pond and listened.” Which question could a reader ask DURING reading?','What is the fox listening for?',['What is the fox’s phone number?','How tall is the author?','What is the best pond in the world?'],'The question connects to the text and can be answered by reading on.'],
+['After reading, a student wonders, “What other animals live in a pond?” What did the student do?','The student asked a question to gain more information.',['The student summarized the text.','The student predicted the ending.','The student found the main idea.'],'Wondering about more information after reading is asking a question.'],
+['A reader asks, “Why did the character feel nervous?” This question helps the reader…','understand the character’s feelings',['count the pages','find the author','fix the spelling'],'Questions about characters help you understand their feelings and actions.'],
+['Which question is NOT a good question to ask while reading?','What is my favorite cartoon?',['What does this word mean?','Why did this happen?','What might happen next?'],'Good questions connect to the text you are reading.'],
+['Which is the best question to ask after reading a story about a girl who saves a lost puppy?','How might the girl’s life change because she helped the puppy?',['What color is the puppy’s collar?','Where do puppies buy food?','Who is taller, the girl or the puppy?'],'A good after-reading question goes deeper into the meaning of the story.']]);
+
+/* 3.6A, C, D, E, H, I: strategies */
+PLS('r_strat','Reading strategies','🧠',['3.6A','3.6C','3.6D','3.6E','3.6H','3.6I','3.7A'],['purpose for reading','establish purpose','make predictions','predict','mental images','visualize','connections','synthesize','monitor comprehension','reread','self-select'],
+'Strong readers set a PURPOSE, PREDICT using clues, picture the text in their MIND, MAKE CONNECTIONS, put ideas TOGETHER, and FIX their understanding by rereading when they get lost.',
+[['Dev will read a book about sharks to get ready for a science quiz. What is Dev’s purpose for reading?','to learn facts about sharks',['to enjoy a funny story','to find out how to bake a cake','to practice handwriting'],'A purpose is WHY you read. Dev reads to learn facts for the quiz.'],
+['Tess picks up a joke book at the library. What is her likely purpose for reading?','to enjoy and laugh',['to learn about volcanoes','to follow steps to build a model','to study for a spelling test'],'A joke book is read for enjoyment.'],
+['Which purpose for reading fits a recipe book?','to learn the steps to make something',['to learn about a character’s feelings','to enjoy a rhyming poem','to find out about an animal’s habitat'],'A recipe book gives steps, so the purpose is to learn how to make something.'],
+['The title of a story is “The Day the Rain Never Stopped,” and the cover shows a girl holding a boat. Which prediction is best?','The story will be about a girl and a very rainy day.',['The story will be about a desert trip.','The story will explain how to bake bread.','The story will be about a basketball game.'],'A good prediction uses the title and picture clues.'],
+['Read: “Ben packed a flashlight, a sleeping bag, and a tent.” Which prediction is most reasonable?','Ben is going camping.',['Ben is going to school.','Ben is going swimming.','Ben is going to the dentist.'],'The things Ben packs are clues that point to camping.'],
+['A reader predicts a story will end happily. Later, the character loses everything. What should the reader do?','Change the prediction using the new information.',['Keep the same prediction no matter what.','Stop reading the story.','Skip the next chapter.'],'Readers correct or confirm predictions as they learn new details.'],
+['Read: “The old barn creaked, and dusty sunlight slipped through its broken boards.” What picture should a reader make in their mind?','a worn-down barn with sunlight coming through gaps',['a busy city street at night','a snowy mountain top','a clean new kitchen'],'Words like old, creaked, dusty, and broken help you picture a worn-down barn.'],
+['Why do readers create mental images?','to understand and remember what they read',['to read faster','to avoid hard words','to find the author’s name'],'Picturing the text deepens understanding.'],
+['A story is about a girl who moves to a new school. Jo remembers her own first day at a new school. What is Jo doing?','making a connection to her own life',['making a prediction','finding the main idea','checking spelling'],'Linking the text to your own experience is a connection.'],
+['Which sentence shows a connection between two texts?','This book about frogs reminds me of the article I read about toads.',['I like the cover of this book.','This book has 50 pages.','I will read this book tomorrow.'],'A text-to-text connection links ideas from one text to another.'],
+['A reader learns that bees carry pollen between flowers and that flowers need pollen to make fruit. Which new idea puts the facts together?','Without bees, there might be less fruit to eat.',['Bees are yellow and black.','Flowers come in many colors.','Fruit is sweet.'],'Synthesizing means combining facts to make a new idea.'],
+['Ana reads a paragraph and realizes she does not understand it. What should she do?','Reread the paragraph and ask questions.',['Keep reading without thinking.','Close the book.','Skip every paragraph like it.'],'Good readers monitor understanding and fix it by rereading.'],
+['Which is a good way to fix understanding when a text gets confusing?','slow down and reread the confusing part',['read faster','ignore unknown words','read only the last page'],'Rereading and slowing down help when understanding breaks down.'],
+['Which is the best way to choose a book to read on your own?','pick a book about something you like at your reading level',['pick the longest book on the shelf','pick the book with the fewest pictures','pick the first book you see'],'Self-selected books should match your interests and reading level.']]);
+
+/* 3.7E: notetaking */
+PLS('r_notes','Notetaking and annotating','📝',['3.7E'],['notetaking','annotating','freewriting','illustrating','interact with sources','take notes','underline','sticky note'],
+'Interact with what you read. Take NOTES with key words. ANNOTATE by underlining or writing in the margin. FREEWRITE your thoughts. ILLUSTRATE with a quick sketch.',
+[['Which is an example of annotating a text?','underlining key facts and writing a question in the margin',['copying the whole page','reading only the title','closing the book after the first line'],'Annotating means marking the text and writing notes on it.'],
+['Mia reads about the life cycle of a frog and draws each stage. What is Mia doing?','illustrating to show understanding',['annotating a poem','taking a test','memorizing a list'],'Drawing to show what you learned is illustrating.'],
+['Which notes best summarize a paragraph about how bees make honey?','bees collect nectar → store it in the hive → it becomes honey',['bees are fuzzy and fly fast','I like honey on toast','the paragraph has five sentences'],'Good notes use key words and keep ideas in order.'],
+['What is freewriting?','writing your thoughts about a text without stopping to fix mistakes',['copying sentences exactly','writing only the title','looking up words in a dictionary'],'Freewriting means writing freely about your thoughts.'],
+['Noah underlines new words in the text and writes their meanings in the margin. This helps him…','remember and understand new words',['finish faster','skip the hard parts','find the author’s birthday'],'Marking and defining words builds understanding.'],
+['Which tool is best for taking notes while reading a library book you must return?','a notebook or sticky notes',['a permanent marker on the pages','a pair of scissors','a highlighter used all over the book'],'Notebooks and sticky notes keep notes without damaging a library book.'],
+['A student circles key words and draws an arrow from a cause to its effect. What strategy is this?','annotating',['predicting','proofreading','skimming'],'Marking the text to show ideas is annotating.'],
+['Why do readers take notes?','to remember important ideas and organize information',['to make the text longer','to avoid reading','to hide mistakes'],'Notes help you remember and organize important ideas.'],
+['Which is an example of notetaking?','writing “main idea: owls hunt at night” while reading',['rewriting the whole article','copying the title three times','reading aloud only'],'Notetaking records key ideas in a short, useful form.'],
+['After reading a story, Eli sketches the setting and labels where the characters stand. This is an example of…','illustrating',['freewriting','alphabetizing','editing'],'A labeled sketch that shows what you understood is illustrating.']]);
+
+/* 3.7D: retell and paraphrase */
+PLS('r_retell','Retelling and paraphrasing','🔁',['3.7D'],['retell','paraphrase','restate in your own words','summarize in order','own words'],
+'To RETELL, tell the important events in the right order. To PARAPHRASE, say the same idea in your own words and keep the meaning.',
+[['Read the passage.'+PAS('The turtle packed a lunch and set off for the pond. On the way, a rabbit teased him for being slow. The turtle kept going. By sunset he had reached the pond, and the rabbit was still asleep under a tree.')+'Which retelling keeps the events in the right order?','The turtle set off for the pond, the rabbit teased him, and the turtle arrived while the rabbit slept.',['The rabbit slept, the turtle arrived, and the rabbit teased him.','The turtle arrived at the pond, packed a lunch, and then the rabbit teased him.','The rabbit packed a lunch and the turtle slept under a tree.'],'A retelling keeps the main events in the order they happened.'],
+['Which sentence paraphrases (says in other words) “The enormous dog trotted down the street”?','The very large dog walked along the road.',['The tiny cat sat on the roof.','The dog barked at the street.','A street is long.'],'A paraphrase keeps the same meaning in different words.'],
+['Which paraphrase keeps the meaning of “Plants need sunlight, water, and soil to grow”?','To grow, plants must get light, water, and dirt.',['Plants can grow without water.','Sunlight makes soil grow.','Plants need sunlight, water, and soil to grow.'],'A paraphrase uses your own words. Copying the sentence is not paraphrasing.'],
+['Read the passage.'+PAS('Kai wanted to bake cookies for his class. He mixed the dough, but he forgot the sugar. The cookies tasted plain, so Kai added icing. His class loved them anyway.')+'Which is the best short retelling?','Kai baked cookies, forgot the sugar, fixed them with icing, and his class enjoyed them.',['Kai baked cookies and his class did not like them.','Kai forgot to bake the cookies.','Kai’s class made cookies with icing.'],'A good retelling includes the key events, in order, without changing the meaning.'],
+['When you retell a story, you should…','tell the important events in order',['add new characters','tell only the ending','change the setting'],'Retelling means telling the important parts in the order they happened.'],
+['What does it mean to paraphrase?','to say the same thing in your own words',['to read it louder','to copy it word for word','to make it longer'],'Paraphrasing keeps the meaning but changes the words.'],
+['Read the passage.'+PAS('Frogs start life as eggs in water. The eggs hatch into tadpoles. The tadpoles grow legs and lose their tails. Finally, they become frogs that live on land and in water.')+'Which retelling keeps the logical order?','Eggs hatch into tadpoles, the tadpoles grow legs, and then they become frogs.',['Frogs lay tadpoles that hatch into eggs.','Tadpoles become eggs and then frogs.','Frogs become tadpoles, then eggs.'],'The life cycle goes eggs, tadpoles, then frogs.'],
+['Which statement is NOT a good paraphrase of “The storm knocked out the power for two hours”?','The storm lasted for two days.',['The electricity went out for two hours because of the storm.','Because of the storm, there was no power for two hours.','Two hours without electricity were caused by the storm.'],'A paraphrase must keep the meaning. “Two days” changes it.'],
+['Read the passage.'+PAS('Mara lost her kite in a tall tree. Her brother climbed up carefully and got it down. Mara thanked him with a big hug.')+'Which sentence best summarizes the passage?','Mara’s brother helped her get her kite out of a tree.',['Mara climbed a tree and lost her brother.','Mara’s brother lost his kite.','Mara gave her kite to a friend.'],'A summary tells the most important events in a short, accurate way.'],
+['Which is the best first step to retell a story?','think about the beginning, middle, and end',['memorize every word','skip to the last page','read it backward'],'Thinking about beginning, middle, and end helps you retell the important events in order.']]);
+
+/* 3.8C and 3.8D: plot and setting */
+PLS('r_plot','Plot and setting','🗺️',['3.8C','3.8D'],['plot','conflict','resolution','setting','sequence of events','plot elements','influence of the setting'],
+'The PLOT has a beginning, a problem (CONFLICT), a most exciting part, and a RESOLUTION that solves the problem. The SETTING is when and where the story happens, and it can change what characters do.',
+[['Read the passage.'+PAS('Zoe’s kite flew away in the wind. She chased it across the park and over a hill. At last, she caught the string just before it flew into the river.')+'What is the conflict (the problem) in the story?','Zoe’s kite flew away.',['Zoe went to the park.','Zoe liked the river.','Zoe walked over a hill.'],'The conflict is the problem the character faces.'],
+['Read the passage.'+PAS('Zoe’s kite flew away in the wind. She chased it across the park and over a hill. At last, she caught the string just before it flew into the river.')+'What is the resolution (how the problem ends)?','Zoe caught the kite string.',['The wind started blowing.','Zoe saw a river.','Zoe lost her kite.'],'The resolution is how the problem is solved.'],
+['Read the passage.'+PAS('The camping trip started with heavy rain. The tent leaked, and everyone’s sleeping bags were soaked. The family packed up and drove to a cabin, where they dried off and played board games.')+'How does the setting (the rain) influence the plot?','The rain ruins the camping plan, so the family moves to a cabin.',['The rain helps the family find the cabin.','The rain has no effect on the story.','The rain makes the family go swimming.'],'The setting causes the problem and changes what the characters do.'],
+['Read the passage.'+PAS('Leo wanted to win the spelling bee. He studied every night. At the contest, he froze on the word “because.” Then he took a deep breath and spelled it correctly.')+'Which event happens FIRST?','Leo wanted to win the spelling bee.',['Leo froze on a word.','Leo took a deep breath.','Leo spelled “because” correctly.'],'The sequence of events begins with what Leo wanted.'],
+['Read the passage.'+PAS('Mina’s class visited a desert at noon. The sand was so hot that they wore hats and stayed in the shade.')+'How does the setting affect what the characters do?','The heat makes them wear hats and stay in the shade.',['The desert makes them go sledding.','The setting does not matter.','The sand makes them swim.'],'A hot desert setting leads to hats and shade.'],
+['Which part of a story tells how the problem is solved?','the resolution',['the setting','the title','the characters'],'The resolution is where the problem is solved.'],
+['In a story, the conflict is…','the problem the characters face',['the place where the story happens','the lesson of the story','the first sentence'],'Conflict means the problem or struggle in the plot.'],
+['Read the passage.'+PAS('A boy named Dev lost his lunch money. He searched his backpack, his desk, and the hallway. Finally, a janitor handed him the money he had dropped by the door.')+'Which sequence is correct?','Dev lost money, searched, and then got it back.',['Dev got the money back, searched, and then lost it.','Dev searched, lost money, and then thanked the principal.','The janitor lost the money and Dev searched.'],'The events happen in this order: lost, searched, found.'],
+['The setting of a story is…','when and where the story takes place',['who tells the story','the main problem','the ending'],'Setting means time and place.'],
+['Read the passage.'+PAS('It was a stormy night on the old ship. Waves crashed over the deck, and the crew held tightly to the ropes. At dawn the storm calmed, and everyone cheered.')+'How does the setting create the problem?','The stormy sea puts the crew in danger.',['The calm morning starts the problem.','The ropes cause the storm.','The crew caused the waves.'],'The stormy setting creates danger, which is the problem in the plot.']]);
+
+/* 3.13A-H: inquiry and research */
+PLS('r_res_q','Asking research questions','🔍',['3.13A'],['generate questions on a topic','research question','formal and informal inquiry','inquiry','topic questions'],
+'A good research question is about ONE topic, cannot be answered with just yes or no, and often starts with how, why, or what.',
+[['Which is the best research question about penguins?','How do penguins stay warm in very cold weather?',['Do penguins live somewhere?','Penguins!','Is a penguin a bird?'],'The best research questions are open-ended and focused, not yes-or-no.'],
+['Maya wants to learn about volcanoes. Which question is too big to research?','What is everything about Earth?',['How do volcanoes erupt?','What is lava made of?','Where are the most active volcanoes?'],'A question that is too big cannot be answered in a short project.'],
+['Which question can be answered with just “yes” or “no”?','Is the Moon round?',['Why does the Moon change shape?','How does the Moon move around Earth?','What causes the Moon’s phases?'],'Yes-or-no questions do not lead to much research.'],
+['Which word best starts an open-ended research question?','Why',['Is','Are','Does'],'Words like why, how, and what lead to longer answers.'],
+['A student wants to find out how bridges are built. Which is a good question?','What materials and steps are used to build a bridge?',['Bridges.','Is a bridge big?','Where is my backpack?'],'A focused open-ended question gives you something to research.'],
+['What is the first step in a research project?','choose a topic and ask questions about it',['write the works cited page','present the final report','copy facts from one website'],'Research begins with a topic and questions.'],
+['Which question can be answered by researching books or the internet?','How do honeybees communicate?',['Which pizza tastes best to me?','What should I wear tomorrow?','Is blue prettier than green?'],'Research questions have answers you can find, not just opinions.'],
+['Eli asks, “Why do leaves change color in fall?” What kind of question is this?','an open-ended research question',['a yes-or-no question','an opinion question','a question with no answer'],'It asks why, and it can be researched.'],
+['Which topic is narrow enough for a short research project?','how sea turtles find their way to the beach',['all oceans','everything about animals','the whole history of Earth'],'A narrow topic is easier to research well.'],
+['Ava is researching dinosaurs. Which question will lead her to the most information?','What did plant-eating dinosaurs eat, and how did they survive?',['Did dinosaurs exist?','Was there a dinosaur?','Are dinosaurs big?'],'Open-ended questions lead to more information.']]);
+
+PLS('r_res_plan','Making a research plan','📋',['3.13B'],['research plan','develop and follow a research plan','adult assistance','steps for research'],
+'A research plan lists the steps: choose a topic, ask questions, find sources, take notes, check facts, and share what you learned. With an adult helping, follow your plan step by step.',
+[['Which is the first step in a research plan?','choose a topic and write questions',['write the final report','make a works cited page','present to the class'],'A plan starts with a topic and questions.'],
+['Which step comes AFTER finding sources?','take notes on the information',['choose a topic','ask questions','forget the questions'],'After you find sources, you read and take notes.'],
+['Why should you follow a research plan?','to stay organized and finish each step',['to avoid reading','to copy faster','to skip questions'],'A plan keeps you organized.'],
+['Ms. Lee helps Sam plan his project on bats. What should Sam list in his plan?','questions, sources, and steps for taking notes',['only the title','only pictures','his favorite foods'],'A plan lists what you will do and what you need.'],
+['Which is the BEST order for a research plan?','ask questions, find sources, take notes, share what you learned',['share what you learned, find sources, ask questions, take notes','take notes, share, ask questions, find sources','find sources, share, take notes, ask questions'],'Research moves from questions to sources to notes to sharing.'],
+['Who can help a third grader develop a research plan?','an adult such as a teacher or librarian',['no one, it must be done alone','a stranger online','only a classmate who has not read about the topic'],'In third grade, students make and follow a plan with adult help.'],
+['What should you do if your plan is not working?','revise the plan with adult help',['stop the project','copy another student’s plan','ignore the plan'],'Plans can be changed when something is not working.'],
+['A plan has these steps: choose a topic, write questions, find books, take notes. What is missing for a complete project?','share the results',['name the author','erase the notes','add another topic'],'A complete project ends by sharing what you learned.'],
+['Which tool could help you keep track of the steps in a research plan?','a checklist',['a calculator','a ruler','a stopwatch'],'A checklist lets you check off each step.'],
+['Why is it important to write down your questions before searching?','so you know what information to look for',['so the search is shorter','so you can copy faster','so no one can help you'],'Questions guide what you search for.']]);
+
+PLS('r_res_gather','Finding relevant information','📚',['3.13C'],['identify and gather relevant information','relevant information','variety of sources','gather information'],
+'Relevant information answers your research question. Use books, articles, trusted websites, and interviews. Skip details that are off topic.',
+[['Mia is researching how bees make honey. Which fact is relevant?','Bees collect nectar from flowers.',['Honey is often sold in jars.','Some people are afraid of bees.','Bees once appeared on a stamp.'],'A relevant fact helps answer the research question.'],
+['Which source would be best for finding facts about whales?','a book about ocean animals',['a comic about talking cats','a menu from a restaurant','a movie poster'],'Choose sources about your topic.'],
+['Which website is most likely to give accurate facts about space?','a NASA website',['a random blog with no author','a joke page','a fan story site'],'Experts and science organizations are more reliable.'],
+['Which fact is NOT relevant to a project on how plants grow?','Many people like cooking shows.',['Plants need sunlight.','Plants need water.','Roots take in nutrients.'],'Off-topic facts do not help answer the question.'],
+['Where could you gather information about your own town’s history?','a local library or museum',['a video game','a cookbook','a puzzle book'],'Libraries and museums hold local history information.'],
+['What does “relevant” mean?','connected to your topic or question',['very long','funny','hard to read'],'Relevant information fits your topic.'],
+['Which is a good way to gather information from a variety of sources?','read a book, an article, and a trusted website',['read the same page three times','ask only one friend','look at one picture'],'Using different sources gives a fuller picture.'],
+['Ava needs facts about how bridges are built. Which resource should she check first?','an encyclopedia or engineering book',['a diary of a dog','a fairy tale','a coloring book'],'Reference books give facts about real topics.'],
+['A website has no author, no date, and many ads. What should a researcher do?','look for a more reliable source',['use it as the only source','trust it because it is online','copy it word for word'],'Reliable sources show who wrote them and when.'],
+['Which is an example of gathering information by interviewing?','asking a nurse questions about her job',['reading a poem','watching a cartoon','playing a board game'],'An interview collects information from a person.']]);
+
+PLS('r_res_src','Primary and secondary sources','🏛️',['3.13D'],['primary source','secondary source','primary and secondary','firsthand','diary','interview'],
+'A PRIMARY source comes from someone who was THERE: a diary, photo, letter, or interview. A SECONDARY source was made later by someone who learned about the event: a textbook, encyclopedia, or biography.',
+[['Which is a primary source?','a diary written by a girl during a flood',['a textbook about floods','an encyclopedia article about floods','a video that explains how floods form'],'A diary written during the event is a firsthand account.'],
+['Which is a secondary source?','a biography of Abraham Lincoln written today',['a letter Lincoln wrote','a photograph from Lincoln’s time','Lincoln’s own speech'],'A biography written later is a secondary source.'],
+['A photograph taken at a school in 1950 is…','a primary source',['a secondary source','a made-up story','an opinion'],'A photo taken at the time is a primary source.'],
+['An encyclopedia article about the moon landing is…','a secondary source',['a primary source','a diary','an interview'],'The encyclopedia was written later by someone who studied the event.'],
+['Which is an example of a primary source for learning about your classroom last year?','a photo and a class journal from last year',['a poster about schools in general','a book about schools around the world','a web page explaining classrooms'],'Photos and journals from that time are primary sources.'],
+['What makes a source primary?','It was created by someone who saw or lived the event.',['It is very long.','It was written by a famous author.','It is found online.'],'Primary sources come from people who were there.'],
+['Maya interviews her grandmother about growing up. This interview is…','a primary source',['a secondary source','a textbook','a rumor'],'An interview with someone who lived it is a primary source.'],
+['A textbook chapter about the Great Wall was written by a historian who studied it. This is…','a secondary source',['a primary source','a diary','a firsthand account'],'The historian was not there when it was built, so it is secondary.'],
+['Which pair is correct?','a letter from a soldier is primary; a history book about the war is secondary',['a letter from a soldier is secondary; a history book is primary','an encyclopedia is primary; a diary is secondary','a newspaper from today about 1990 is primary; a photo from 1990 is secondary'],'Letters from people who were there are primary; later books are secondary.'],
+['Why do researchers use both primary and secondary sources?','Primary sources give firsthand details, and secondary sources explain and connect them.',['They make the report longer.','They are always exactly the same.','Only one kind is allowed.'],'Each kind helps in a different way.']]);
+
+PLS('r_res_use','Using and sharing what you learned','📣',['3.13E','3.13F','3.13G','3.13H'],['demonstrate understanding of information gathered','paraphrasing and plagiarism','plagiarism','works cited','mode of delivery','present results'],
+'Show you UNDERSTAND by explaining facts in your own words. PARAPHRASING uses your own words. PLAGIARISM copies someone’s words without credit. A WORKS CITED page lists your sources. Share your results in writing, out loud, or with pictures and sound.',
+[['Which is paraphrasing?','putting an author’s idea into your own words and naming the source',['copying a sentence exactly with no credit','copying a paragraph and changing one word','using someone’s picture as if you made it'],'Paraphrasing uses your own words and gives credit.'],
+['What is plagiarism?','using someone else’s words or ideas without giving credit',['writing facts in your own words','listing your sources','asking an adult for help'],'Plagiarism is taking credit for someone else’s work.'],
+['What is a works cited page?','a list of the sources you used',['a list of your questions','a page of your favorite facts','the title page'],'It shows where your information came from.'],
+['Why should students include a works cited page?','to give credit to the people whose information they used',['to make the project longer','to show the teacher the page count','to hide where facts came from'],'Giving credit is honest and shows your sources.'],
+['Which shows understanding of the information gathered?','explaining how a plant makes food in your own words',['copying the paragraph','reading it aloud without thinking','writing only the title'],'Explaining in your own words shows you understand.'],
+['Ben wants to share his research on frogs with the class. Which is an oral way to present?','giving a talk with a poster',['writing a letter no one reads','keeping the notes in his desk','hiding the poster'],'An oral presentation is spoken to an audience.'],
+['Which is a multimodal way to present research?','a slideshow with pictures, words, and a spoken explanation',['a page with only words','a whisper to one friend','a list of questions only'],'Multimodal means using more than one mode, such as words, pictures, and sound.'],
+['Which is plagiarism?','copying a web paragraph into your report without saying where it came from',['writing a summary in your own words and listing the website','quoting a short sentence and naming the author','drawing your own diagram'],'Copying without credit is plagiarism.'],
+['Which source belongs on a works cited page?','the book or website you used for facts',['your friend’s name','your favorite color','a picture you drew yourself'],'The works cited page lists sources for information.'],
+['Which best paraphrases “Owls hunt at night using sharp hearing”?','Owls use their strong sense of hearing to find food in the dark.',['Owls hunt at night using sharp hearing.','Owls like the dark and sleep a lot.','Hearing is sharp.'],'A paraphrase keeps the meaning in new words.'],
+['Which way of sharing results is a written way?','a report',['a speech','a puppet show','a video'],'A report is written.'],
+['Lia wants to show how a volcano erupts. Which delivery would help most?','a model with a short talk',['a page of numbers','a silent list','a drawing hidden in a folder'],'A model with a talk shows and explains the process.']]);
+
+/* 3.3D: synonyms, antonyms, homophones, homographs, idioms */
+(function(){var W=[['Which word is a synonym for “happy”?','joyful',['sad','angry','tired'],'A synonym means almost the same.'],
+['Which word is a synonym for “tiny”?','small',['huge','loud','heavy'],'Tiny and small mean almost the same.'],
+['Which word is an antonym (opposite) of “brave”?','fearful',['bold','strong','kind'],'An antonym means the opposite.'],
+['Which word is an antonym of “ancient”?','modern',['old','dusty','historic'],'Ancient means very old, so the opposite is modern.'],
+['Which word is an antonym of “difficult”?','easy',['hard','tricky','tough'],'Difficult and easy are opposites.'],
+['Which pair are homophones?','their / there',['happy / glad','hot / cold','run / ran'],'Homophones sound the same but are spelled differently.'],
+['Which word is a homophone for “sea”?','see',['sew','say','sun'],'“Sea” and “see” sound the same.'],
+['Which word is a homophone of “flour”?','flower',['floor','flavor','four'],'“Flour” and “flower” sound alike.'],
+['Which sentence uses “wind” to mean “to turn a knob”?','I need to wind my watch.',['The wind blew my hat away.','A cold wind came from the north.','The wind is strong today.'],'The word “wind” has two meanings and two pronunciations.'],
+['Homographs are words that…','are spelled the same but have different meanings',['sound the same but are spelled differently','mean the same thing','mean the opposite'],'Homographs look alike but mean different things.'],
+['Homophones are words that…','sound the same but have different spellings and meanings',['are spelled the same but mean different things','mean the same thing','rhyme with each other'],'Homophones sound alike but are spelled differently.'],
+['What does the idiom “a piece of cake” mean?','very easy',['a dessert','a small slice','very tasty'],'An idiom means something different from its words.'],
+['What does the idiom “raining cats and dogs” mean?','raining very hard',['animals falling','a small drizzle','a pet show'],'It is an idiom for heavy rain.'],
+['What does the idiom “under the weather” mean?','feeling sick',['standing in the rain','hiding from the storm','enjoying nice weather'],'It is an idiom for feeling ill.'],
+['What does the idiom “spill the beans” mean?','tell a secret',['drop food on the floor','cook dinner','plant a garden'],'It is an idiom for telling a secret.'],
+['Which word is a synonym for “begin”?','start',['finish','stop','end'],'Begin and start mean almost the same.']];
+ wrapGen('r_vocab',.35,function(){var it=P(W);return O(it[0],it[1],it[3],it[2].map(function(w){return [w,'Not quite. '+it[3]]}))})})();
+
+/* 3.9A-C: genres, poetry, drama */
+[['A story that teaches a lesson and has talking animals is called a…','fable',['biography','newspaper article','recipe']],
+['Which kind of story explains why something in nature happens, like why the sun rises?','myth',['fable','diary','science report']],
+['Which is a characteristic of a fairy tale?','It often starts with “Once upon a time” and has magic.',['It lists steps to make something.','It gives facts and statistics.','It is written as a letter.']],
+['Folktales are stories that…','have been told by people for many years',['were written yesterday','are about real events only','explain how to use a map']],
+['A legend is a story that…','is passed down and may be partly based on a real person or event',['is only about talking animals','is a list of facts','is a set of directions']],
+['In a poem, the rhyme scheme AABB means…','the first two lines rhyme and the next two lines rhyme',['every line rhymes','no lines rhyme','only the last line rhymes']],
+['Which word is an example of onomatopoeia?','buzz',['happy','tall','under']],
+['What are sound devices in a poem?','tools such as rhyme and repeated sounds that make the poem musical',['pictures near the poem','the poet’s name','the page number']],
+['In a play, the people who speak and act are the…','characters',['stanzas','chapters','captions']],
+['In a play, a big section that breaks the story into parts is called an…','act',['index','stanza','glossary']],
+['In a play, the words the characters say to each other are called…','dialogue',['setting','title','rhyme']],
+['The place and time where a play happens is the…','setting',['dialogue','stanza','audience']]].forEach(function(x){SSD.push(x)});
+
+/* ---- map every Grade 3 reading TEKS code to a practice set ---- */
+addCodes('r_main',['3.6G','3.9DI','3.7G']);
+addCodes('r_theme',['3.8A']);
+addCodes('r_char',['3.8B']);
+addCodes('r_infer',['3.6F']);
+addCodes('r_evidence',['3.7C']);
+addCodes('r_vocab',['3.3A','3.3B','3.3D','3.4B','3.7F']);
+addCodes('r_parts',['3.3C']);
+addCodes('r_features',['3.9DII','3.9D']);
+addCodes('r_graphic',['3.9F','3.10C']);
+addCodes('r_story',['3.9A','3.9B','3.9C']);
+addCodes('r_purpose',['3.10A','3.10E']);
+addCodes('r_struct',['3.10B','3.9DIII']);
+addCodes('r_fig',['3.10D','3.10G']);
+addCodes('r_tone',['3.10F']);
+addCodes('r_factop',['3.9E']);
+addCodes('r_conv',['3.11D','3.2B']);
+
+/* ---------- TEKS ELAR Grades 6-8 (2017 TEKS) coverage ---------- */
+function mkQA(it){var how=it[3]||('The best answer is “'+it[1]+'”.');return O(it[0],it[1],how,it[2].map(function(w){return [w,'Not quite. '+how]}))}
+
+/* 6.10C / 7.10C / 8.10C and 3.11C: revising */
+var RVL=[
+['Read: “I like pizza. I like tacos. I like soup.” Which revision combines the sentences best?','I like pizza, tacos, and soup.',['I like pizza I like tacos I like soup.','Pizza, I like tacos and soup I.','I like pizza and I like tacos and I like soup and.'],'Combining short, choppy sentences makes writing smoother.'],
+['Which word is the most precise replacement for “good” in “The soup was good”?','delicious',['nice','fine','okay'],'A precise word gives the reader a clearer picture than a vague word.'],
+['Read: “The big dog ran.” Which revision adds the most helpful detail?','The huge brown dog raced across the muddy yard.',['The dog ran.','The dog ran and ran.','The animal was a dog that ran.'],'Specific details make a sentence clearer and more interesting.'],
+['Which sentence should be deleted? “Our class planted a garden. We planted beans and corn. My brother likes video games. We watered the plants every day.”','My brother likes video games.',['We planted beans and corn.','Our class planted a garden.','We watered the plants every day.'],'Delete sentences that do not support the main idea.'],
+['Read: “First we mixed the batter. Then we baked the cake. Last we ate it. Before that, we got out the bowls.” Which sentence should move to the beginning?','Before that, we got out the bowls.',['First we mixed the batter.','Then we baked the cake.','Last we ate it.'],'Rearrange ideas so they follow a logical order.'],
+['Which revision fixes the repeated words? “The cat was soft. The cat was quiet. The cat was sleepy.”','The cat was soft, quiet, and sleepy.',['The cat was soft. The cat was quiet. The cat was sleepy cat.','Cat was soft quiet sleepy.','The cat was cat soft and quiet and sleepy.'],'Combining ideas removes repeated words.'],
+['Which revision combines the sentences best? “The boy ate lunch. The boy ate dessert. The boy went outside.”','The boy ate lunch and dessert, and then he went outside.',['The boy ate lunch. The boy ate dessert. The boy went out.','The boy lunch dessert outside.','The boy ate, the boy ate, the boy went.'],'Combining sentences adds variety and smoothness.'],
+['Which revision uses a stronger verb? “The girl walked quickly to the door.”','The girl dashed to the door.',['The girl went to the door.','The girl was at the door.','The girl walked to the door fast.'],'A strong verb can replace a weak verb and an adverb.'],
+['Which change makes this sentence clearer? “It was on the table.”','The red notebook was on the table.',['It was there.','It was on a thing.','It was on the table too.'],'Replace vague words with specific ones.'],
+['Which revision combines these sentences? “Ana has a dog. The dog is named Bo.”','Ana has a dog named Bo.',['Ana has a dog and the dog is Bo is named.','Ana dog Bo.','Ana has a dog, the dog, Bo.'],'Combining sentences removes repeated words.'],
+['Which word best replaces “said” to show excitement? “Look at the rainbow!” Mia said.','shouted',['mumbled','whispered','asked'],'Choose a word that shows how the character speaks.'],
+['What does it mean to revise a draft?','to improve it by adding, deleting, combining, or rearranging ideas',['to fix only spelling','to copy it neatly','to read it aloud once'],'Revising improves ideas, organization, and word choice.']];
+var RVU=[
+['Read: “The experiment was long. The experiment was difficult. The results were surprising.” Which revision improves sentence variety?','Although the experiment was long and difficult, the results were surprising.',['The experiment was long. The experiment was difficult. The results were surprising.','The experiment was long and it was difficult and the results were surprising.','Long, difficult, and surprising results.'],'Combining ideas with a subordinating conjunction creates variety and smoothness.'],
+['Which revision removes wordiness? “Due to the fact that it was raining, we stayed inside.”','Because it was raining, we stayed inside.',['Due to the fact of raining, we stayed inside.','It was raining, which is why it was that we stayed inside.','We stayed inside due to the fact that it was raining outside.'],'Wordy phrases can be replaced with shorter ones that keep the meaning.'],
+['Which word choice is most precise? “The scientist ___ the sample.”','examined',['saw','glanced at','watched'],'A precise verb tells exactly what the scientist did.'],
+['A paragraph about volunteering includes the sentence “Pizza is my favorite food.” What should the writer do?','delete the sentence because it does not support the topic',['move it to the end','add more sentences about pizza','change “favorite” to “best”'],'Revise for development and organization by removing off-topic sentences.'],
+['Which revision best fixes the unclear pronoun? “When Maya talked to Lena, she was nervous.”','When Maya talked to Lena, Maya was nervous.',['When Maya talked to Lena, she was nervous too.','When Maya talked to Lena, they was nervous.','When Maya talked to Lena, her was nervous.'],'Replace an unclear pronoun with the noun it stands for.'],
+['Which transition best connects the ideas? “The team practiced every day. ___, they won the championship.”','As a result',['However','For example','Meanwhile'],'The practice caused the win, so a cause-and-effect transition fits.'],
+['Which revision best supports the claim “School uniforms are helpful”?','School uniforms are helpful because they reduce distractions and save families money.',['School uniforms are helpful, I think.','School uniforms are helpful and very helpful.','Uniforms exist at many schools.'],'Support a claim with specific reasons.'],
+['Which sentence best combines these ideas? “The storm passed. The festival continued.”','After the storm passed, the festival continued.',['The storm passed the festival continued.','The storm passed, and, the festival continued.','The storm passed the festival, continued.'],'A subordinating conjunction connects the ideas correctly.'],
+['Which revision creates a more formal tone? “The park was kinda dirty, so we cleaned it up.”','The park was littered, so we cleaned it.',['The park was super gross, so we cleaned it up.','The park was kinda messy, so we cleaned.','The park was dirty-ish, so we cleaned it up.'],'Formal writing avoids slang and uses precise words.'],
+['Which word best replaces “important” and keeps the meaning in “It is important to sleep well”?','essential',['trivial','optional','unusual'],'A good replacement keeps the same meaning.'],
+['Which sentence should come FIRST to improve organization? (1) Finally, add the toppings. (2) To make a pizza, start with the dough. (3) Next, spread the sauce.','To make a pizza, start with the dough.',['Finally, add the toppings.','Next, spread the sauce.','They are all equal.'],'Steps are organized in time order, starting with the first step.'],
+['Which revision fixes the run-on sentence? “The bus was late we waited in the cold.”','The bus was late, so we waited in the cold.',['The bus was late we waited, in the cold.','The bus was late we waited in the cold.','The bus late was we waited in the cold.'],'A comma and a conjunction fix a run-on.'],
+['Which revision best varies sentence length? “The door opened. A man entered. He sat down. He ordered coffee.”','When the door opened, a man entered, sat down, and ordered coffee.',['The door opened, a man entered, he sat down, he ordered coffee.','The door opened. The man. Sat down. Coffee.','A man and the door opened and he sat down and ordered coffee.'],'Combining some sentences creates a mix of lengths.'],
+['Why do writers revise for sentence variety?','to make writing more interesting and smoother to read',['to make every sentence the same length','to remove all details','to avoid using verbs'],'Varied sentences keep readers engaged.']];
+RS('r_revise','Revising for clarity and word choice','✂️',['3.11C'],['revise drafts','revise','sentence variety','word choice','clarity','development','organization','style','combine sentences'],
+'To REVISE, improve the ideas: add detail, delete what does not belong, combine choppy sentences, rearrange for order, and choose precise words.',
+function(UP){return mkQA(P(UP?RVU:RVL))});
+
+/* 3.11A-B, 6-8.10A-B: planning and organizing a draft */
+PLS('r_draft','Organizing and developing a draft','🧱',['3.11A','3.11B'],['develop drafts','organizing','introduction','conclusion','transitions','coherence','topic sentence','thesis','plan a first draft'],
+'A strong draft has an INTRODUCTION with a main idea, BODY paragraphs with specific details, TRANSITIONS that connect ideas, and a CONCLUSION that wraps up.',
+[['Which sentence would make the best introduction for an essay about recycling?','Every day, families throw away tons of trash, but recycling can help.',['Recycling.','I like blue bins.','The end of my essay is below.'],'A good introduction hooks the reader and leads to the main idea.'],
+['Which is the best concluding sentence for a paragraph about why exercise is important?','For these reasons, regular exercise keeps both the body and mind healthy.',['Exercise is a word.','I have a dog.','Many sports exist.'],'A conclusion wraps up the main idea.'],
+['Which detail best supports the topic sentence “Owls are skilled night hunters”?','Their sharp hearing helps them find prey in the dark.',['Owls are birds.','Some people keep owls as pets.','Owls can be found in books.'],'A supporting detail explains or proves the topic sentence.'],
+['Which transition shows contrast? “I wanted to play outside. ___, it started to rain.”','However',['Therefore','For example','Also'],'However signals a change or contrast.'],
+['Which transition shows an example? “Many animals hibernate. ___, bears sleep through winter.”','For instance',['However','In conclusion','Meanwhile'],'For instance introduces an example.'],
+['Which topic sentence best fits a paragraph about the benefits of reading?','Reading every day helps students grow their vocabulary and imagination.',['I read a book once.','Books have covers.','Libraries are buildings.'],'A topic sentence states the main idea of the paragraph.'],
+['A writer’s paragraph jumps between ideas. What would improve coherence?','using transitions and keeping each paragraph on one main idea',['adding more unrelated facts','making the paragraphs shorter without changing ideas','removing the topic sentence'],'Coherence means ideas connect and flow.'],
+['Which is the best order for an essay?','introduction, body paragraphs, conclusion',['conclusion, introduction, body paragraphs','body paragraphs, introduction, conclusion','introduction, conclusion, body paragraphs'],'Essays begin with an introduction and end with a conclusion.'],
+['Which sentence adds a specific detail to “The city was crowded”?','Thousands of people filled the sidewalks, and cars crawled down every street.',['The city was really, really crowded.','The city had people.','It was a city.'],'Specific details show the idea.'],
+['Which thesis statement is the clearest? (topic: school lunches)','Schools should serve more fresh fruits and vegetables because they improve students’ health and focus.',['School lunches are things.','I will write about lunch.','Lunch is at noon.'],'A thesis states a clear position and a reason.'],
+['What does a conclusion do?','wraps up the main idea and leaves the reader with a final thought',['introduces a new topic','repeats the title only','lists the sources'],'A conclusion brings the writing to a close.'],
+['Before writing, a student chooses what to write (a story, a letter, or an essay) based on the topic, purpose, and audience. What step is this?','planning a first draft',['editing','publishing','proofreading'],'Selecting a genre for your purpose and audience is planning.']]);
+
+/* 6-8.12H and 12I: judging sources */
+PLS('r_res_eval','Judging sources: reliability, bias, and citations','🧐',['6.12H'],['reliability','credibility','bias','faulty reasoning','citations','examine sources','academic citations','stereotype','emotional appeal'],
+'A RELIABLE source names its author, gives its date, and cites evidence. BIAS is a one-sided leaning. FAULTY REASONING (hyperbole, emotional appeals, stereotypes, bandwagon, loaded language) tries to persuade without real proof. CITATIONS give credit and let readers find the source.',
+[['Which source is most reliable for facts about climate?','a report from a scientific agency with named experts',['an anonymous social media post','a blog by someone selling a product','a rumor passed around at school'],'Reliable sources name their experts and rely on evidence.'],
+['What does “credibility” mean?','how much a source can be trusted',['how long a source is','how colorful a source is','how many ads it has'],'Credible sources can be trusted.'],
+['An article about a new snack is written by the company that sells it. What should a researcher consider?','The author may be biased because the company wants to sell the snack.',['The article must be completely accurate.','The company has no reason to favor the snack.','Bias is impossible in company articles.'],'A source with something to gain may be biased.'],
+['What is bias?','a one-sided or unfair leaning toward or against something',['a list of sources','a type of graph','a kind of citation'],'Bias means a one-sided view.'],
+['Which is an example of an emotional appeal?','“If you care about puppies at all, you must sign this petition right now!”',['“The petition has 500 signatures as of Monday.”','“The shelter helped 120 dogs last year.”','“The petition closes on Friday.”'],'An emotional appeal uses feelings instead of facts.'],
+['A speaker says, “Everyone knows this phone is the best.” What kind of reasoning is this?','faulty reasoning, because it makes a claim without proof',['strong evidence','a primary source','a citation'],'A claim needs evidence, not just “everyone knows.”'],
+['What is a stereotype?','an oversimplified idea about a group of people',['a fact from a study','a fair summary','a quotation'],'Stereotypes treat all members of a group as the same.'],
+['Why do researchers display citations?','to give credit and let readers find the sources',['to make the report longer','to hide where facts came from','to change the meaning of facts'],'Citations show where information came from.'],
+['Which source may be biased because it leaves out important information?','an ad that lists only a product’s benefits and never mentions its costs',['a report with data and limits listed','an article that cites several studies','a textbook with a bibliography'],'Omitting key facts is a sign of bias.'],
+['Which detail helps you judge whether a website is credible?','It names the author, gives the date, and cites its sources.',['It has bright colors.','It has many pop-up ads.','It was shared by many people.'],'Credible sites are transparent about who wrote them and where facts came from.'],
+['The claim “This is the worst law in history!” is an example of…','faulty reasoning, because it exaggerates instead of giving proof',['strong factual evidence','a reliable citation','a primary source'],'Hyperbole is exaggeration, not evidence.'],
+['Which is the best way to use source material ethically?','paraphrase in your own words and cite the source',['copy it and leave out the source','change one word and call it yours','use it without saying where it came from'],'Ethical use gives credit.']]);
+
+/* plot elements for grades 6-8 */
+(function(){var U=[['Which plot element is the turning point, or most intense moment, of a story?','climax',['exposition','falling action','resolution'],'The climax is the peak of the conflict.'],
+['What happens in the rising action?','The conflict builds and tension grows.',['The story ends.','Characters are introduced for the first time only.','The problem is solved.'],'Rising action builds toward the climax.'],
+['What is the falling action?','the events after the climax that lead toward the resolution',['the events before the conflict','the first paragraph','the title'],'Falling action follows the climax.'],
+['A story shows a character remembering something that happened years earlier. This is called…','a flashback',['foreshadowing','a resolution','a theme'],'A flashback jumps back to an earlier time.'],
+['Read: “As Jonah locked the cabin door, he noticed dark clouds gathering, and the old radio crackled a warning.” The clouds and radio warning are an example of…','foreshadowing',['flashback','resolution','irony'],'Clues that hint at later events are foreshadowing.'],
+['Read: “The village sat in a valley with only one road. When the flood came, there was no way out.” How does the setting influence the plot?','The isolated valley makes escape impossible, which intensifies the conflict.',['The valley makes the characters happy.','The setting has no effect.','The road causes the flood.'],'The setting creates and shapes the problem.'],
+['In 1930s Oklahoma, a family loses its farm to drought and moves west. How does the historical setting influence the characters?','The hardships of the time force them to leave and change their plans.',['It makes them go on a vacation.','It has no effect on their choices.','It makes them become rich.'],'Historical settings shape characters’ choices.'],
+['Which question is answered in the resolution of a story?','How does the conflict end?',['Who wrote the story?','Where is the story set?','What is the title?'],'The resolution shows how the conflict ends.'],
+['How do a character’s internal responses (thoughts and feelings) help develop the plot?','They drive the choices the character makes, which move events forward.',['They only describe the setting.','They have no effect on events.','They replace the conflict.'],'Characters’ responses cause the events that follow.']];
+ var s=skById('r_plot'),old=s.gen;s.gen=function(UP){return UP?mkQA(P(U)):old.call(s,UP)}})();
+
+/* genres, poetry, drama, and text features for grades 6-8 */
+[['A story set in a modern school with realistic characters and problems is…','realistic fiction',['a myth','science fiction','a biography']],
+['A story in which a detective solves a puzzle is a…','mystery',['myth','biography','fable']],
+['A story set in a real past time with made-up characters is…','historical fiction',['science fiction','a mystery','poetry']],
+['Which feature helps readers see how meter affects a poem?','the pattern of stressed and unstressed syllables',['the title length','the number of pages','the author’s name']],
+['What effect can a line break have in a poem?','It creates a pause or emphasis.',['It ends the poem.','It changes the author.','It adds a footnote.']],
+['How do playwrights show a character’s personality?','through what the character says and does on stage',['through the page count','through the title only','through the index']],
+['In a play, staging tells the actors…','where to stand and how to move',['what the audience thought','who wrote the play','how long the play is']],
+['A play is divided into major parts called…','acts and scenes',['stanzas and verses','chapters and indexes','paragraphs and captions']]].forEach(function(x){SSU.push(x)});
+[['What does a foreword in a book usually do?','gives background written by someone other than the author',['lists every chapter','defines each word','shows the index']],
+['What is the purpose of a preface?','to explain why and how the author wrote the book',['to list the pictures','to show the answers','to name the publisher only']],
+['Where would you find a list of the sources an author used?','the references or works cited',['the title page','the glossary','the caption']],
+['What is the purpose of acknowledgements?','to thank people who helped with the book',['to summarize the plot','to define terms','to list page numbers']],
+['What do footnotes and endnotes do?','give extra information or sources for a specific part of the text',['list the chapters','show the book’s cover','define the title']],
+['Why do informational texts include citations?','to show where information came from',['to make the text longer','to give opinions','to show the author’s age']]].forEach(function(x){TFU.push(x)});
+(function(){var F=[['A writer asks, “Do we want our children to inherit a polluted planet?” This is a…','rhetorical question',['fact','metaphor','citation'],'A rhetorical question makes readers think instead of answering.'],
+['A speaker says, “You can make a difference today.” Speaking straight to the audience is called…','direct address',['a flashback','an idiom','a footnote'],'Direct address speaks to the reader or listener.'],
+['Which statement is a sweeping generalization?','All teenagers are lazy.',['Some teenagers volunteer on weekends.','Many teens play sports.','A survey found 40 percent of teens work part-time.'],'“All” makes a claim about everyone without proof.'],
+['Which sentence uses loaded language?','The greedy company destroyed our beautiful town.',['The company opened a new factory.','The town has 5,000 residents.','The factory employs 200 people.'],'Loaded language uses strong, emotional words to sway readers.'],
+['Which is a bandwagon appeal?','Everyone is switching to this brand, so you should too.',['This brand uses recycled materials.','This brand costs ten dollars.','This brand was founded in 1990.'],'A bandwagon appeal says you should do it because everyone does.'],
+['What is circular reasoning?','using the claim itself as proof for the claim',['using several facts to prove a claim','asking a question','quoting an expert'],'In circular reasoning, the argument just repeats the claim.'],
+['Which best describes a counterargument?','an opposing view that an author addresses',['the author’s main claim','a statistic that supports the claim','the title'],'A counterargument is the other side.'],
+['Which type of evidence is most convincing in an argument?','a statistic from a reliable study',['a rumor','a guess','a slogan'],'Reliable data is strong evidence.'],
+['An author acknowledges a different view and responds to it. This strengthens the argument because it…','shows the author considered other ideas',['hides the claim','removes evidence','changes the topic'],'Addressing other views makes an argument more convincing.']];
+ wrapGen('r_factop',.45,function(){return mkQA(P(F))})})();
+
+/* ---- map Grades 6-8 TEKS codes (middle school numbering) ---- */
+(function(){var M={'2A':'r_vocab','2B':'r_vocab','2C':'r_parts','5A':'r_strat','5B':'r_ask','5C':'r_strat','5D':'r_strat','5E':'r_strat','5F':'r_infer','5G':'r_main','5H':'r_strat','5I':'r_strat',
+'6A':'r_strat','6B':'r_compare','6C':'r_evidence','6D':'r_retell','6E':'r_notes','6F':'r_vocab','6G':'r_infer','6J':'r_factop',
+'7A':'r_theme','7B':'r_char','7C':'r_plot','7D':'r_plot','8A':'r_story','8B':'r_story','8C':'r_story','8D':'r_struct','8DI':'r_main','8DII':'r_features','8DIII':'r_struct','8E':'r_factop','8EI':'r_factop','8EII':'r_factop','8EIII':'r_factop','8F':'r_graphic',
+'9A':'r_purpose','9B':'r_struct','9C':'r_graphic','9D':'r_fig','9E':'r_purpose','9F':'r_tone','9G':'r_factop',
+'10A':'r_draft','10B':'r_draft','10C':'r_revise','10D':'r_conv',
+'12A':'r_res_q','12B':'r_res_plan','12C':'r_res_q','12D':'r_res_gather','12E':'r_res_src','12F':'r_res_use','12G':'r_res_use','12H':'r_res_eval','12HI':'r_res_eval','12HII':'r_res_eval','12I':'r_res_eval','12J':'r_res_use'};
+ [6,7,8].forEach(function(g){Object.keys(M).forEach(function(k){addCodes(M[k],[g+'.'+k])})})})();
+
 if(typeof module!=='undefined')module.exports={SK:SK,THEMES:THEMES,LIB:LIB,libPlan:libPlan,libOne:libOne,setTheme:setTheme,interestsToThemes:interestsToThemes,setEG:function(v){EG=v}};
 
 </script>
@@ -2298,6 +2616,7 @@ function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 var SKI={};SK.forEach(function(s,i){s.i=i;SKI[s.id]=s});
 var NQ=10,XPMAX=25,UPBAND=0;
 var DB={roster:ld('sq_roster2',[]),prog:ld('sq_prog2',{}),done:ld('sq_done2',{}),base:ld('sq_base',''),seen:ld('sq_seen',{}),last:ld('sq_last2',''),mute:ld('sq_mute',false),read:ld('sq_read',null),lastq:ld('sq_lastq',''),outbox:ld('sq_outbox',[])};
+DB.read=true;
 var CUR=null,RUN=null,VIEW='home',TMP=null,DEL=-1,CLR=false,DRAFT={n:'',l:'',t:'',f:'',i:''};
 function save(){sv('sq_roster2',DB.roster);sv('sq_prog2',DB.prog);sv('sq_done2',DB.done);sv('sq_base',DB.base);sv('sq_seen',DB.seen);sv('sq_last2',DB.last);sv('sq_mute',DB.mute);sv('sq_read',DB.read);sv('sq_lastq',DB.lastq);sv('sq_outbox',DB.outbox);if(typeof CL!=='undefined'&&CL.teacher)cloudSoon()}
 function pkey(st){return st.pv?'pv:'+st.name:st.name}
@@ -2326,18 +2645,37 @@ function duck(crown){return '<span class="dk"><img class="duck" alt="" src="'+DU
 var CHEER=['Quack-tastic!','Nice paddling!','You got it!','Splashing success!','Great thinking!'];
 /* ---------- Read aloud ---------- */
 function plain(h){return String(h).replace(/<span class="fr"><i>([^<]*)<\/i><i>([^<]*)<\/i><\/span>/g,' $1 over $2 ').replace(/<br\s*\/?>/g,'. ').replace(/<[^>]*>/g,' ').replace(/&nbsp;/g,' ').replace(/&gt;/g,' is greater than ').replace(/&lt;/g,' is less than ').replace(/&amp;/g,' and ').replace(/_{2,}/g,' blank ').replace(/×/g,' times ').replace(/÷/g,' divided by ').replace(/−/g,' minus ').replace(/ \+ /g,' plus ').replace(/ = /g,' equals ').replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{200D}]/gu,'').replace(/\s+/g,' ').trim()}
-function say(t,force){if(!force&&!DB.read)return;if(typeof speechSynthesis==='undefined')return;try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(plain(t));u.rate=.85;u.lang='en-US';speechSynthesis.speak(u)}catch(e){}}
-function stopSay(){try{speechSynthesis.cancel()}catch(e){}}
-function speakQ(force){var q=RUN&&RUN.qs[RUN.i];if(!q)return;var pre=(!force&&q.pass&&passShown(RUN.i))?plain(q.pass.replace(/<\/p>/g,'. '))+' . Now the question. ':'';say(pre+(q.sp||plain(q.q))+'. Your choices are: '+q.opts.map(function(o){return o.sp||plain(o.t).replace(/[.?!]+$/,'')}).join('. ')+'.',force)}
-function speakPass(){var q=RUN&&RUN.qs[RUN.i];if(q&&q.pass)say(plain(q.pass.replace(/<\/p>/g,'. ')),true)}
-function setRead(v){DB.read=!!v;save();if(v)say('Reading is on.',true);else stopSay();render()}
-function toggleRead(){DB.read=!DB.read;save();if(DB.read){if(RUN&&VIEW==='quiz'){RUN.spoke=RUN.i;speakQ(true)}else say('Reading is on.',true)}else stopSay();render()}
+var SP={id:0,tm:null,ok:(typeof speechSynthesis!=='undefined'&&typeof SpeechSynthesisUtterance!=='undefined')};
+function gateOn(){return !window.__NOGATE}
+function chunkText(t){var parts=t.match(/[^.!?]+[.!?]*\s*/g)||[t],out=[],cur='';parts.forEach(function(p){if((cur+p).length>170&&cur){out.push(cur);cur=p}else cur+=p});if(cur.trim())out.push(cur);return out}
+function stopSay(){SP.id++;clearTimeout(SP.tm);try{speechSynthesis.cancel()}catch(e){}}
+function say(t,done,prog){stopSay();var id=SP.id,txt=plain(t);if(!txt){if(done)setTimeout(function(){done(true)},0);return}
+ var parts=chunkText(txt),i=0,fin=false;
+ function finish(ok){if(fin||id!==SP.id)return;fin=true;clearTimeout(SP.tm);if(done)done(ok)}
+ if(window.__SPEECHFAST){setTimeout(function(){finish(true)},window.__SPEECHFAST===true?5:window.__SPEECHFAST);return}
+ if(!SP.ok){setTimeout(function(){finish(false)},0);return}
+ function next(){if(id!==SP.id||fin)return;if(i>=parts.length){finish(true);return}var seg=parts[i++];if(prog)prog(i,parts.length);var u=new SpeechSynthesisUtterance(seg),moved=false;u.rate=.85;u.lang='en-US';
+  function adv(){if(moved||id!==SP.id)return;moved=true;clearTimeout(SP.tm);next()}
+  u.onend=adv;u.onerror=function(e){if(id!==SP.id)return;if(e&&(e.error==='interrupted'||e.error==='canceled'))return;finish(false)};
+  clearTimeout(SP.tm);SP.tm=setTimeout(adv,3500+seg.split(/\s+/).length*650);try{speechSynthesis.speak(u)}catch(e){finish(false)}}
+ next()}
+function lockMsg(m){var e=$('lk');if(e){e.firstChild.textContent=m;e.style.display=''}}
+function unlockQ(i,ok){if(!RUN||RUN.i!==i)return;RUN.heardI=i;var q=RUN.qs[i];if(VIEW==='quiz'&&q&&!q.done){[].forEach.call(document.querySelectorAll('.opt'),function(b){b.disabled=false});var o=document.querySelector('.opts');if(o)o.classList.remove('locked')}
+ var e=$('lk');if(e){if(ok===false&&SP.ok){e.firstChild.textContent='Choose your answer. If you missed something, tap 🔊 Hear it again.';e.className='lockmsg ok'}else e.style.display='none'}}
+function startReading(full){var q=RUN&&RUN.qs[RUN.i];if(!q)return;var i=RUN.i,first=RUN.heardI!==i,
+ pre=((full&&q.pass)||(first&&q.pass&&passShown(i)))?plain(q.pass.replace(/<\/p>/g,'. '))+' . Now the question. ':'';
+ var txt=pre+(q.sp||plain(q.q))+'. Your choices are: '+q.opts.map(function(o){return o.sp||plain(o.t).replace(/[.?!]+$/,'')}).join('. ')+'.';
+ if(first)lockMsg('🔊 Listen first. The answers unlock when Duck finishes reading.');
+ say(txt,function(ok){if(first||RUN.heardI!==i)unlockQ(i,ok)},function(k,n){if(RUN&&RUN.heardI!==i)lockMsg('🔊 Listening… '+k+' of '+n)})}
+function readFeedback(txt,i){say(txt,function(){if(!RUN)return;RUN.fbDone=i;var b=$('nx');if(b){b.disabled=false;b.textContent=b.getAttribute('data-t')}})}
+function soundTest(){say('Hello! I am Duck. If you can hear me, you are ready to start.')}
+function setRead(){DB.read=true}function toggleRead(){}
 function toggleMute(){DB.mute=!DB.mute;save();render()}
 
 /* ---------- Shell ---------- */
 function go(v){VIEW=v;stopSay();render();window.scrollTo(0,0)}
 function render(){var f={home:vHome,intro:vIntro,quiz:vQuiz,result:vResult,teacher:vTeacher,load:vLoad}[VIEW];$('app').innerHTML=f();
- if(VIEW==='quiz'&&RUN&&DB.read&&RUN.spoke!==RUN.i){RUN.spoke=RUN.i;setTimeout(function(){speakQ()},300)}}
+ if(VIEW==='quiz'&&RUN&&RUN.spoke!==RUN.i){RUN.spoke=RUN.i;if(gateOn())setTimeout(function(){startReading(false)},300);else RUN.heardI=RUN.i}}
 function topbar(){var x='';if(CUR)x='<span class="chip">⭐ '+Pg(CUR).xp+' XP</span>';
  return '<div class="top"><button class="ib" onclick="goHome()" aria-label="Home">🏠</button><span class="brand">🦆 Duck Quest</span>'+x+'<button class="ib" onclick="toggleMute()" aria-label="Sound effects '+(DB.mute?'off':'on')+'">'+(DB.mute?'🔕':'🎵')+'</button></div>'}
 function goHome(){if(CUR&&CUR.pv){CUR=null;go('teacher')}else{CUR=null;go('home')}}
@@ -2355,7 +2693,7 @@ function resume(){var st=decode(DB.last);if(st){if(DB.lastq)st.qid=DB.lastq;logi
 function vIntro(){var ids=skillsOf(CUR),key=encode(CUR),dn=DB.done[key];
  return topbar()+(CUR.pv?'<div class="banner">Teacher preview. XP is not saved in preview.</div>':'')+'<section class="card intro"><div class="duckwrap sm">'+duck()+'<div class="say">You’ve got this, '+esc(CUR.name)+'!</div></div><h2>Duck made this just for you</h2><p class="lead">Your quiz has <b>'+NQ+' questions</b>. Each right answer earns XP, up to <b>'+XPMAX+' XP</b> in all. If you miss one, Duck shows you the right answer and why.</p>'+
  '<h3>What Duck will help you practice</h3><div class="chips">'+ids.map(function(id){return '<span class="chip">'+SKI[id].icon+' '+esc(SKI[id].name)+'</span>'}).join('')+'</div>'+
- (CUR.themes&&CUR.themes.length?'<h3>Made with your interests</h3><div class="chips">'+CUR.themes.map(function(i){return '<span class="chip">'+THEMES[i].icon+' '+esc(THEMES[i].name)+'</span>'}).join('')+'</div>':'')+'<label class="sw"><input type="checkbox" role="switch" '+(DB.read?'checked':'')+' onchange="setRead(this.checked)"><span class="track"><i></i></span><span class="swl">Read to me: <b>'+(DB.read?'On':'Off')+'</b></span></label>'+
+ (CUR.themes&&CUR.themes.length?'<h3>Made with your interests</h3><div class="chips">'+CUR.themes.map(function(i){return '<span class="chip">'+THEMES[i].icon+' '+esc(THEMES[i].name)+'</span>'}).join('')+'</div>':'')+'<p class="note">🔊 Duck reads everything out loud. Turn your sound up and listen all the way through. The answers unlock when Duck finishes.</p><button class="btn alt" onclick="soundTest()">🔊 Test my sound</button>'+(SP.ok?'':'<p class="warn">This device cannot read out loud. Ask your teacher to help you switch to a different device or browser.</p>')+
  (dn&&!CUR.practice&&!CUR.pv?'<p class="note">You finished this quiz on '+esc(dn.date)+'. You can practice again, but it will not earn more XP.</p>':'')+
  '<button class="btn wide" onclick="startQuiz()">'+(dn&&!CUR.pv?'Practice again':'Start my quiz')+'</button></section>'}
 function hsh(s){var h=5381;for(var i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))|0;return (h>>>0).toString(36)}
@@ -2382,23 +2720,24 @@ function recheckQ(q){var sk=q.sk,H=histFor(),hist=H?(H[sk.id]||(H[sk.id]=[])):nu
  if(isLib(sk)){var c=libOne(sk.id,UPBAND,CUR.themes||[],function(sid,o){return sf(sid,o)||RUN.seen[sigOf(o)]},q.pid);if(c)r=buildQ(sk,c.o,sigOf(c.o),false,c.pass,c.pid,RUN.seen)}
  if(!r)r=mkQ(sk,RUN.seen,hist);r.depth=q.depth+1;return r}
 function passShown(i){var q=RUN.qs[i],p=RUN.qs[i-1];return !!(q.pass&&!(p&&p.pid&&p.pid===q.pid))}
-function vQuiz(){var q=RUN.qs[RUN.i],pv='';
+function vQuiz(){var q=RUN.qs[RUN.i],pv='',locked=gateOn()&&RUN.heardI!==RUN.i&&!q.done;
  if(q.pass)pv=passShown(RUN.i)?q.pass:'<details class="pdet"><summary>Show the passage again</summary>'+q.pass+'</details>';
  var chip=q.depth>0?'<span class="rchip">🎯 Recheck</span>':'';
  return topbar()+'<div class="qhead"><button class="lnk" onclick="quit()">Quit</button><span class="qname">Question '+(RUN.i+1)+' of '+RUN.need+'</span><span class="chip">⭐ '+fmx(RUN.pts)+' XP</span><span class="streak">🔥 '+RUN.streak+'</span></div>'+
- '<div class="tools"><button class="pill'+(DB.read?' on':'')+'" onclick="toggleRead()" aria-pressed="'+(DB.read?'true':'false')+'">🗣️ Read to me: '+(DB.read?'On':'Off')+'</button><button class="pill" onclick="speakQ(true)">🔊 Hear it again</button>'+(q.pass?'<button class="pill" onclick="speakPass()">📖 Read the passage</button>':'')+'</div>'+
+ '<div class="tools"><button class="pill" onclick="startReading(false)">🔊 Hear it again</button>'+(q.pass?'<button class="pill" onclick="startReading(true)">📖 Read the passage</button>':'')+'</div>'+
  pv+
- '<div class="card q"><div class="qtxt">'+q.q+'</div><div class="opts">'+q.opts.map(function(o,i){return '<button class="opt" id="o'+i+'" onclick="pick('+i+')">'+o.t+'</button>'}).join('')+'</div><div id="fb" class="fb" aria-live="polite"></div></div>'}
+ '<div class="card q"><div class="qtxt">'+q.q+'</div>'+(locked?'<div id="lk" class="lockmsg" aria-live="polite"><span>🔊 Listen first. The answers unlock when Duck finishes reading.</span>'+(CUR.pv?' <button class="lnk" onclick="unlockQ(RUN.i,true)">Teacher: skip</button>':'')+'</div>':'<div id="lk" class="lockmsg" style="display:none"><span></span></div>')+'<div class="opts'+(locked?' locked':'')+'">'+q.opts.map(function(o,i){return '<button class="opt" id="o'+i+'" onclick="pick('+i+')"'+(locked?' disabled':'')+'>'+o.t+'</button>'}).join('')+'</div><div id="fb" class="fb" aria-live="polite"></div></div>'}
 function quit(){go('intro')}
-function pick(i){var q=RUN.qs[RUN.i];if(q.done)return;q.done=1;RUN.asked++;var o=q.opts[i],fb=$('fb');
+function pick(i){var q=RUN.qs[RUN.i];if(q.done)return;if(gateOn()&&RUN.heardI!==RUN.i)return;q.done=1;RUN.asked++;var o=q.opts[i],fb=$('fb');
  q.opts.forEach(function(x,k){var e=$('o'+k);e.disabled=true;if(x.ok)e.classList.add('good')});
  if(o.ok){RUN.pts++;RUN.streak++;beep(660,.1);setTimeout(function(){beep(880,.14)},110);
   var last=RUN.i===RUN.qs.length-1;fb.className='fb ok';var ch=CHEER[Math.floor(Math.random()*CHEER.length)];
-  fb.innerHTML='<b>🦆 '+ch+' ⭐ +'+fmx(1)+' XP</b><p>'+q.how+'</p><button class="btn wide" onclick="nextQ()">'+(last?'Finish':'Next question')+'</button>';say(ch+' '+q.how)}
+  fb.innerHTML='<b>🦆 '+ch+' ⭐ +'+fmx(1)+' XP</b><p>'+q.how+'</p>'+nxBtn(last)+'';readFeedback(ch+' '+q.how,RUN.i)}
  else{$('o'+i).classList.add('bad');RUN.miss++;RUN.streak=0;RUN.mbs[q.sk.id]=(RUN.mbs[q.sk.id]||0)+1;beep(220,.2);RUN.unm[q.sk.id]=1;var last2=RUN.i===RUN.qs.length-1,hd='Not this time, and that is okay! Here is the right answer so you can learn from it. No XP for this one.';
-  fb.className='fb no';fb.innerHTML='<b>🦆 '+hd+'</b><p>'+o.why+'</p><p><b>The right answer:</b> '+q.how+'</p><button class="btn wide" onclick="nextQ()">'+(last2?'Finish':'Next question')+'</button>';say(hd+' '+o.why+' '+q.how)}
+  fb.className='fb no';fb.innerHTML='<b>🦆 '+hd+'</b><p>'+o.why+'</p><p><b>The right answer:</b> '+q.how+'</p>'+nxBtn(last2)+'';readFeedback(hd+' '+o.why+' The right answer. '+q.how,RUN.i)}
  fb.scrollIntoView({block:'nearest',behavior:'smooth'})}
-function nextQ(){RUN.i++;if(RUN.i>=RUN.qs.length)finish();else go('quiz')}
+function nxBtn(last){var t=last?'Finish':'Next question',lock=gateOn()&&!CUR.pv;return '<button id="nx" class="btn wide" data-t="'+t+'" onclick="nextQ()"'+(lock?' disabled':'')+'>'+(lock?'🔊 Listen to the answer…':t)+'</button>'}
+function nextQ(){if(gateOn()&&!CUR.pv&&RUN.fbDone!==RUN.i)return;RUN.i++;if(RUN.i>=RUN.qs.length)finish();else go('quiz')}
 function dstr(){var d=new Date();return d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}
 function finish(){var ok=true,stars=RUN.miss===0?3:RUN.miss<=2?2:RUN.miss<=4?1:1,p=Pg(CUR),aw=0;
  if(!RUN.practice&&!CUR.pv){aw=Math.round(XPMAX*RUN.pts/RUN.need);p.xp+=aw;DB.done[RUN.key]={date:dstr(),score:RUN.pts}}
@@ -2417,7 +2756,7 @@ function followCode(){var ms=missedIds();return encode({name:CUR.name,rows:[],ma
 function copyResults(){var ms=missedIds(),t='Duck Quest results\nStudent: '+CUR.name+'\nDate: '+RUN.date+'\nScore: '+RUN.pts+'/'+RUN.need+' right\nXP earned: '+(RUN.award?fmx(RUN.pts):'0')+(RUN.award?'':' (practice round)')+'\nMissed skills: '+(ms.length?ms.map(function(id){return label(SKI[id])}).join(', '):'none');if(ms.length)t+='\nFollow-up code: '+followCode();copy(t,'Results copied')}
 
 /* ---------- Teacher ---------- */
-var STRE=/^(persistent|watch|improving|resolved|mastered)$/i,CODERE=/^(?:[A-Z]{1,4}(?:\.[A-Za-z0-9]+){2,5}|\d{1,2}\.[A-Z]{1,4}(?:\.[A-Za-z0-9]+){1,3}|\d{1,2}(?:\.\d{1,2}){1,3}(?:\.[A-Z])?)$/;
+var STRE=/^(persistent|watch|improving|resolved|mastered)$/i,CODERE=/^(?:\d{1,2}\.\d{1,2}\(?[A-J]\)?(?:\((?:i|ii|iii|iv|v|vi|vii|viii|ix|x|xi)\))?|[A-Z]{1,4}(?:\.[A-Za-z0-9]+){2,5}|\d{1,2}\.[A-Z]{1,4}(?:\.[A-Za-z0-9]+){1,3}|\d{1,2}(?:\.\d{1,2}){1,3}(?:\.[A-Z](?:\.[ivx]+)?)?)$/;
 function parseReport(txt){var lines=txt.split(/\r?\n/).map(function(l){return l.trim()}).filter(Boolean),out=[],cur=null,pend='',mode='';
  lines.forEach(function(l){
   if(STRE.test(l)){pend=l;return}
@@ -2430,10 +2769,13 @@ function parseReport(txt){var lines=txt.split(/\r?\n/).map(function(l){return l.
   if(mode==='meta'&&!cur.desc){cur.desc=l;return}
   if(mode==='cause')cur.cause+=' '+l;else if(mode==='assigned')cur.assigned+=' '+l;else if(!cur.desc)cur.desc=l});
  return out}
-function matchItem(it){var c=it.code.toUpperCase(),i,j,sc;
- for(i=0;i<SK.length;i++)if(SK[i].codes&&SK[i].codes.indexOf(c)>=0)return SK[i].id;
- for(i=0;i<SK.length;i++)if(SK[i].codes)for(j=0;j<SK[i].codes.length;j++){sc=SK[i].codes[j];if(c.indexOf(sc+'.')===0||sc.indexOf(c+'.')===0)return SK[i].id}
- var lower=(it.desc||'').toLowerCase(),best=null,bs=0;SK.forEach(function(s){var q=0;s.kw.forEach(function(k){if(lower.indexOf(k)>=0)q+=k.length});if(q>bs){bs=q;best=s.id}});return bs>=9?best:null}
+var MATHRE=/\b(number|numbers|fraction|digit|multipl|divid|area|perimeter|angle|shape|quadrilateral|rhombus|liquid|weight|capacity|graph|data|equation|equations|expression|expressions|equivalent|algebra|algebraic|variable|inequalit|ratio|percent|rate|integer|proportion|coordinate|slope|function|linear|probability|triangle|circle|exponent|round|estimate|measure|volume|decimal|sum|product|coins|bills)/i,READRE=/\b(text|passage|read|reading|author|story|stories|poem|drama|source|sources|research|inquiry|vocabulary|sentence|word|words|question|questions|annotat|notetaking|freewrit)/i;
+function teksFind(code){for(var i=0;i<SK.length;i++)if(SK[i].codes&&SK[i].codes.indexOf(code)>=0)return SK[i].id;return null}
+function matchItem(it){var c=it.code.toUpperCase().replace(/\s+/g,''),i,j,sc,m=c.match(/^(\d{1,2}\.\d{1,2})\.?\(?([A-J])\)?(?:\.?\(?([IVX]+)\)?)?$/);
+ if(m){var d=(it.desc||''),skip=MATHRE.test(d)&&!READRE.test(d);if(!skip){var id=(m[3]&&teksFind(m[1]+m[2]+m[3]))||teksFind(m[1]+m[2]);if(id)return id}}
+ else{for(i=0;i<SK.length;i++)if(SK[i].codes&&SK[i].codes.indexOf(c)>=0)return SK[i].id;
+ for(i=0;i<SK.length;i++)if(SK[i].codes)for(j=0;j<SK[i].codes.length;j++){sc=SK[i].codes[j];if(c.indexOf(sc+'.')===0||sc.indexOf(c+'.')===0)return SK[i].id}}
+ var lower=(it.desc||'').toLowerCase(),best=null,bs=0,gr=m?+m[1].split('.')[0]:null,mathPath=m&&MATHRE.test(it.desc||'')&&!READRE.test(it.desc||'');SK.forEach(function(s){if(mathPath&&s.g!==gr)return;var q=0;s.kw.forEach(function(k){if(lower.indexOf(k)>=0)q+=k.length});if(q>bs){bs=q;best=s.id}});return bs>=9?best:null}
 function readIt(){if(!DRAFT.n.trim()){toast('Type the student’s name first.');return}var items=parseReport(DRAFT.t);if(!items.length){toast('I could not find any standards. Paste the whole report, including the standard codes.');return}
  items.forEach(function(it){it.sid=matchItem(it);it.inc=!!it.sid&&/persistent|watch/i.test(it.st)});TMP={name:DRAFT.n.trim(),label:(DRAFT.l||'').trim().slice(0,60),items:items};render()}
 function makeQuiz(){var rows=TMP.items.map(function(it,i){return {code:it.code,t:it.desc,st:it.st,m:it.m,cause:it.cause,sid:$('sel'+i).value||null,inc:$('ck'+i).checked}});
@@ -2458,7 +2800,7 @@ function vTeacher(){var h=topbar()+'<div class="tpage"><h2 class="tt">Teacher se
  DB.roster.forEach(function(s,si){var c=counts(s),ids=Object.keys(c),n=ids.length;
   h+='<div class="stu"><div class="sh"><input class="inp nm" value="'+esc(s.name)+'" onchange="rename('+si+',this.value)" aria-label="Student name"><span class="chip">'+NQ+' questions</span>'+resChip(s)+'</div><input class="inp full" style="margin:6px 0" value="'+esc(s.label||'')+'" placeholder="Test name (optional), like Reading, Oct 16" onchange="setLabel('+si+',this.value)" aria-label="Test name">'+
   (n?'<div class="chips">'+ids.sort(function(a,b){return SKI[a].i-SKI[b].i}).map(function(id){return '<span class="chip">'+esc(cl(SKI[id])||SKI[id].name)+' × '+c[id]+'</span>'}).join('')+'</div>':'<p class="warn">No skills selected.</p>')+
-  '<label class="ck"><input type="checkbox" '+(s.read?'checked':'')+' onchange="setSRead('+si+',this.checked)"> Start with “Read to me” on</label>'+(ids.some(function(id){return SKI[id].g==='R'})?'<label class="ck">Reading level <select class="sel" onchange="setUpper('+si+',this.value===\'1\')" aria-label="Reading level"><option value="0"'+(s.upper?'':' selected')+'>Grades 3-5</option><option value="1"'+(s.upper?' selected':'')+'>Grades 6-8</option></select></label>':'')+(ids.some(function(id){return SKI[id].g==='E'})?'<label class="ck">Grade for picture questions <select class="sel" onchange="setEarly('+si+',+this.value)" aria-label="Grade for picture questions"><option value="0"'+(!s.early?' selected':'')+'>Kindergarten</option><option value="1"'+(s.early===1?' selected':'')+'>Grade 1</option><option value="2"'+(s.early===2?' selected':'')+'>Grade 2</option></select></label>':'')+
+  (ids.some(function(id){return SKI[id].g==='R'})?'<label class="ck">Reading level <select class="sel" onchange="setUpper('+si+',this.value===\'1\')" aria-label="Reading level"><option value="0"'+(s.upper?'':' selected')+'>Grades 3-5</option><option value="1"'+(s.upper?' selected':'')+'>Grades 6-8</option></select></label>':'')+(ids.some(function(id){return SKI[id].g==='E'})?'<label class="ck">Grade for picture questions <select class="sel" onchange="setEarly('+si+',+this.value)" aria-label="Grade for picture questions"><option value="0"'+(!s.early?' selected':'')+'>Kindergarten</option><option value="1"'+(s.early===1?' selected':'')+'>Grade 1</option><option value="2"'+(s.early===2?' selected':'')+'>Grade 2</option></select></label>':'')+
   '<details><summary>Interests ('+((s.themes||[]).length)+')</summary><div class="cks">'+THEMES.map(function(t,i){return '<label class="ck"><input type="checkbox" '+((s.themes||[]).indexOf(i)>=0?'checked':'')+' onchange="toggleTheme('+si+','+i+',this.checked)"> '+t.icon+' '+esc(t.name)+'</label>'}).join('')+'</div></details>'+
   '<div class="btns"><button class="btn sm" onclick="prev('+si+')"'+(n?'':' disabled')+'>Preview</button><button class="btn alt sm" onclick="copyLink('+si+')"'+(n?'':' disabled')+'>Copy link</button><button class="btn alt sm" onclick="copyCode('+si+')"'+(n?'':' disabled')+'>Copy code</button><button class="btn dng sm" onclick="del('+si+')">'+(DEL===si?'Click again to remove':'Remove')+'</button></div></div>'});
  if(DB.roster.length)h+='<div class="btns"><button class="btn sm" onclick="copyAll()">'+(CL.teacher?'Copy all names and links':'Copy all names and codes')+'</button><button class="btn dng sm" onclick="clearAll()">'+(CLR?'Click again to clear everyone':'Clear all students')+'</button></div>';
