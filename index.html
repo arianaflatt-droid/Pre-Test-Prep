@@ -1317,6 +1317,78 @@ var FRS=[['The class','visited the museum'],['My brother','fed the animals'],['T
 var INTRO=[['After the long hike','we collected firewood'],['When the bell rang','the students lined up'],['During the storm','the lights flickered'],['Before the game','the coach gave a speech'],['Although it was late','Dad kept reading']];
 var SEMI=[['The storm was fierce','we stayed inside'],['Maya loves to paint','her brother prefers to draw'],['The store was closed','we shopped online'],['I studied all night','I felt ready for the test']];
 var SVI=[['The box of pencils ___ on the desk.','is',['are','were','be']],['The kids in the front row ___ listening.','are',['is','was','be']],['The list of rules ___ posted on the door.','is',['are','were','be']],['A bag of oranges ___ in the kitchen.','is',['are','were','be']],['The cars in the garage ___ new.','are',['is','was','be']]];
+/* ===== Grade 3-5 language add-ons (adjective order, run-ons, commas before FANBOYS, figurative words, progressive tenses) ===== */
+function art(w){return /^[aeiou]/i.test(w)?'an':'a'}
+var ADJC=[['lovely','silly','brave','delicious','pretty','funny'],['small','huge','tiny','tall','enormous','little'],['old','new','young','ancient'],['round','square','long','flat','narrow'],['red','blue','green','yellow','purple','orange'],['French','Mexican','Italian','Chinese','Texan'],['wooden','plastic','metal','cotton','leather','paper']],
+ ADJN=['box','bag','hat','blanket','table','bowl','basket','clock'],ADJCAT=['opinion','size','age','shape','color','origin','material'];
+RS('l_adjorder','Adjective order','🧢',['L.4.1.D','L.3.1.A'],['adjective','order adjectives','conventional patterns','opinion-size-age'],
+'Adjectives go in this order: OPINION, SIZE, AGE, SHAPE, COLOR, ORIGIN, MATERIAL, then the noun. Say it in your head: a lovely small old round red French wooden box.',
+function(UP){var r=Math.random();
+ if(r<.65){var n=3,idx=[0,1,2,3,4,5,6],pick=[];while(pick.length<n){var x=P(idx);if(pick.indexOf(x)<0)pick.push(x)}pick.sort(function(a,b){return a-b});
+  var w=pick.map(function(i){return P(ADJC[i])}),noun=P(ADJN);function mk(a){return art(a[0])+' '+a.join(' ')+' '+noun}
+  var alt=[w.slice(),w.slice(),w.slice()];alt[0][0]=w[1];alt[0][1]=w[0];alt[1]=w.slice().reverse();if(n===3){alt[2][1]=w[2];alt[2][2]=w[1]}else alt[2]=null;
+  var wr=[[mk(alt[0]),'“'+w[1]+'” is '+art(ADJCAT[pick[1]])+' '+ADJCAT[pick[1]]+' word, so it comes after the '+ADJCAT[pick[0]]+' word “'+w[0]+'.”'],[mk(alt[1]),'This puts the adjectives in backward order. Think: opinion, size, age, shape, color, origin, material.']];
+  if(alt[2])wr.push([mk(alt[2]),'The '+ADJCAT[pick[1]]+' word “'+w[1]+'” should come before the '+ADJCAT[pick[2]]+' word “'+w[2]+'.”']);else wr.push([art(w[1])+' '+w[1]+' '+w[0]+' '+noun,'The order is mixed up. Put the '+ADJCAT[pick[0]]+' word first.']);
+  var seen={};wr=wr.filter(function(z){if(seen[z[0]]||z[0]===mk(w))return false;seen[z[0]]=1;return true});
+  return O('Which choice puts the adjectives in the right order?',mk(w),'The right order is '+pick.map(function(i){return ADJCAT[i]}).join(' → ')+' → noun, so we say “'+mk(w)+'.”',wr)}
+ var i=P([1,2,3,4,5,6]),w1=P(ADJC[i]),nn=P(['girl','dog','teacher','cat','boy','driver']),vb=P([['ran','home'],['walked','outside'],['waited','by the door'],['smiled','at us']]);
+ var nouns=nn,verb=vb[0],tail=vb[1];
+ return O('Which word in the sentence is an adjective?<br><b>The '+w1+' '+nouns+' '+verb+' '+tail+'.</b>',w1,'An adjective describes a noun. “'+w1+'” tells more about the '+nouns+'.',[[nouns,'“'+nouns+'” is a noun. It names a person, animal, or thing.'],[verb,'“'+verb+'” is a verb. It tells what the '+nouns+' did.'],['The','“The” is an article. It does not describe the '+nouns+' the way “'+w1+'” does.']])});
+var CL2=[['the rain fell all morning','we stayed inside','so'],['I wanted a snack','the cupboard was empty','but'],['my sister plays the drums','my brother plays the guitar','and'],['we can walk to the park','we can ride our bikes','or'],['the test was hard','she studied well','yet'],['the bus was late','we missed the first bell','so'],['I love soccer','my knee still hurts','but'],['the cat jumped on the shelf','the books fell down','and'],['it was getting dark','the street lights came on','so'],['Dad cooked dinner','I set the table','and']];
+function cap(t){return t.charAt(0).toUpperCase()+t.slice(1)}
+var CFR=[['The dog barked at the mail carrier.','Barked at the mail carrier.','The dog at the mail carrier.','When the dog barked at the mail carrier.'],['My brother kicked the ball over the fence.','Kicked the ball over the fence.','My brother over the fence.','After my brother kicked the ball over the fence.'],['The class visited the museum on Friday.','Visited the museum on Friday.','The class on Friday.','Because the class visited the museum on Friday.'],['Our teacher read a funny story.','Read a funny story.','Our teacher and a funny story.','While our teacher read a funny story.'],['The storm knocked down the old tree.','Knocked down the old tree.','The storm and the old tree.','Since the storm knocked down the old tree.'],['A tiny frog jumped into the pond.','Jumped into the pond.','A tiny frog into the pond.','Although a tiny frog jumped into the pond.']];
+RS('l_runon','Complete sentences and run-ons','✂️',['L.4.1.F'],['run-on','fragment','complete sentence','comma splice','correct inappropriate fragments'],
+'A complete sentence has a subject and a verb and makes sense by itself. Two complete sentences cannot be stuck together with just a comma. Use a period, a semicolon, or a comma PLUS and / but / so / or.',
+function(UP){var r=Math.random();
+ if(r<.5){var c=P(CL2),a=c[0],b=c[1],cj=c[2],good=cap(a)+', '+cj+' '+b+'.';
+  return O('Which choice is written correctly, with no run-on?',good,'Two complete sentences can be joined with a comma AND a joining word like “'+cj+'.” That fixes the comma splice.',[[cap(a)+', '+b+'.','A comma alone cannot join two complete sentences. This is a comma splice.'],[cap(a)+' '+b+'.','Two complete sentences are run together with nothing between them. This is a run-on.'],[cap(a)+' '+cj+' '+b+'.','The joining word is there, but a compound sentence also needs a comma before “'+cj+'.”']])}
+ if(r<.75){var f=P(CFR);return O('Which choice is a complete sentence?',f[0],'A complete sentence has a subject and a verb and tells a whole idea.',[[f[1],'This has no subject. Who or what did the action?'],[f[2],'This has no verb. It does not tell what happened.'],[f[3],'This starts with a joining word, so it leaves the idea unfinished. It is a fragment.']])}
+ var c2=P(CL2),a2=c2[0],b2=c2[1];
+ return O('Which sentence is a comma splice (a run-on)?',cap(a2)+', '+b2+'.','Two complete sentences are joined with only a comma. A comma splice needs a period, semicolon, or comma plus a joining word.',[[cap(a2)+'; '+b2+'.','A semicolon can join two related complete sentences, so this one is correct.'],[cap(a2)+'. '+cap(b2)+'.','These are two separate sentences with periods, so this one is correct.'],[cap(a2)+', '+c2[2]+' '+b2+'.','A comma plus “'+c2[2]+'” joins them correctly, so this one is correct.']])});
+var CPD=[['We ate lunch and played outside.'],['The kids cleaned the room and put away the toys.'],['Mom made soup and baked bread.'],['She opened the box and pulled out a puppet.'],['They packed their bags and ran to the bus.'],['I finished my book and wrote a report.']];
+RS('l_fanboys','Commas in compound sentences','🧩',['L.4.2.C'],['comma before a coordinating conjunction','coordinating conjunction','compound sentence','fanboys','comma'],
+'FANBOYS are the joining words: For, And, Nor, But, Or, Yet, So. When they join two complete sentences, put the comma BEFORE the joining word.',
+function(UP){var r=Math.random();
+ if(r<.45){var c=P(CL2),a=c[0],b=c[1],cj=c[2],good=cap(a)+', '+cj+' '+b+'.';
+  return O('Which sentence has the comma in the right place?',good,'The comma goes before the joining word “'+cj+'” because the first complete sentence ends there.',[[cap(a)+' '+cj+', '+b+'.','The comma is after “'+cj+'.” It belongs before “'+cj+'.”'],[cap(a)+' '+cj+' '+b+'.','This joins two complete sentences, so it needs a comma before “'+cj+'.”'],[cap(a)+', '+cj+', '+b+'.','Only one comma is needed, before “'+cj+'.”']])}
+ if(r<.75){var w=P(['for','and','nor','but','or','yet','so']);
+  return O('Which word can join two complete sentences when it follows a comma?',w,'“'+w+'” is one of the seven coordinating conjunctions: for, and, nor, but, or, yet, so.',shuf(['because','when','after','although','while','if','since','until']).slice(0,3).map(function(x){return [x,'“'+x+'” starts a dependent clause. It is not one of the FANBOYS joining words.']}))}
+ var p=P(CPD)[0],cs=shuf(CL2).slice(0,3);
+ return O('Which sentence does NOT need a comma before the joining word?',p,'This sentence has ONE subject doing two actions. It is not two complete sentences, so no comma is needed.',cs.map(function(c){return [cap(c[0])+', '+c[2]+' '+c[1]+'.','This joins two complete sentences, so it DOES need the comma before “'+c[2]+'.”']}))});
+var FIGW=[['The hallway was buzzing before the assembly.','buzzing','filled with excited talk and energy','making a soft insect sound',['whispering secrets','completely silent']],
+ ['The stadium roared when our team scored.','roared','made a loud, excited noise together','sounded like a lion',['was very quiet','was getting empty']],
+ ['Anger simmered in the room.','simmered','quietly built up inside','cooked on a stove',['suddenly disappeared','spilled all over']],
+ ['Time crawled during the long test.','crawled','passed very slowly','moved on hands and knees',['passed very quickly','stopped for good']],
+ ['The wind whispered through the trees.','whispered','made a soft, gentle sound','told a secret',['made a loud crash','stopped blowing']],
+ ['Her smile was sunshine on a gloomy day.','sunshine','something that made everyone feel bright and happy','the light from the sun',['a hot day','a gloomy mood']],
+ ['The classroom was a zoo after lunch.','zoo','very noisy and wild','full of animals in cages',['quiet and tidy','a good place to visit']],
+ ['The snow was a white blanket over the town.','blanket','covered everything evenly','a bed cover',['melted quickly','was thin and torn']],
+ ['The crowd was a sea of waving flags.','sea','a huge number moving together','a body of salt water',['a few flags standing still','a cold place']],
+ ['He ran like the wind.','like the wind','very fast','very slowly',['with a cold','in a circle']]];
+var SIMM=[['The baby is as tiny as a bean.','The baby is a tiny bean.'],['Her voice is like music.','Her voice is music.'],['The moon is like a silver coin.','The moon is a silver coin.'],['My brother is as busy as a bee.','My brother is a busy bee.'],['The test was like a mountain to climb.','The test was a mountain to climb.'],['The clouds were like cotton balls.','The clouds were cotton balls.'],['Time is like a thief.','Time is a thief.']];
+var FIGL=[['buzz','The hallway buzzed with excitement about the field trip.','A bee buzzed around the flower.'],['roar','The crowd began to roar after the winning goal.','The lion let out a loud roar.'],['boil','Her blood boiled when she heard the unfair rule.','The water began to boil on the stove.'],['crawl','The traffic crawled along the highway.','The baby crawled across the rug.'],['bloom','Her confidence began to bloom on stage.','The roses will bloom in the spring.'],['explode','The room exploded with laughter.','The firework began to explode in the sky.']];
+RS('l_figword','Similes, metaphors, and figurative words','🐝',['L.4.5.A'],['simile','metaphor','figurative','multiple-meaning','nonliteral','explain the meaning'],
+'Ask: does the writer mean the words exactly, or is it a comparison? Think about the feeling or picture. “Buzzing” can mean a bee, or it can mean a place full of excited talk.',
+function(UP){var r=Math.random();
+ if(r<.5){var f=P(FIGW);return O('Read the sentence.<br><b>'+f[0]+'</b><br>What does “'+f[1]+'” mean here?',f[2],'The writer is using “'+f[1]+'” in a figurative way. It means '+f[2]+'.',[[f[3],'That is the literal meaning. The writer is not talking about it literally here.'],[f[4][0],'That does not match the picture the writer is making.'],[f[4][1],'That does not match the picture the writer is making.']])}
+ if(r<.75){var sm=P(SIMM),isM=Math.random()<.5,oth=shuf(SIMM.filter(function(x){return x!==sm})).slice(0,2);
+  if(isM)return O('Which sentence is a METAPHOR?',sm[1],'A metaphor says one thing IS another thing, without using “like” or “as.”',[[sm[0],'This uses “like” or “as” to compare, so it is a simile.'],[oth[0][0],'This uses “like” or “as” to compare, so it is a simile.'],[oth[1][0],'This uses “like” or “as” to compare, so it is a simile.']]);
+  return O('Which sentence is a SIMILE?',sm[0],'A simile compares two things using “like” or “as.”',[[sm[1],'This says one thing IS another without “like” or “as,” so it is a metaphor.'],[oth[0][1],'This says one thing IS another without “like” or “as,” so it is a metaphor.'],[oth[1][1],'This says one thing IS another without “like” or “as,” so it is a metaphor.']])}
+ var l=P(FIGL),ws=l[0],figS=l[1],litS=l[2];
+ return O('Which sentence uses “'+ws+'” in a figurative (not literal) way?',figS,'In this sentence “'+ws+'” describes a feeling or an idea, not the real action.',[[litS,'This uses “'+ws+'” in its real, literal meaning.'],[P(['The dog sat by the door.','We walked to the library.','The sky turned gray.']),'This sentence does not use the word “'+ws+'” at all.'],[P(['Our teacher handed out the paper.','The bus stopped at the corner.','He tied his shoes.']),'This sentence does not use the word “'+ws+'” at all.']])});
+var PRG=[['paint','painting'],['bake','baking'],['read','reading'],['build','building'],['clean','cleaning'],['write','writing'],['sing','singing'],['plant','planting']],PSUB=[['I','am','was'],['she','is','was'],['he','is','was'],['we','are','were'],['they','are','were'],['the kids','are','were']];
+RS('l_prog','Progressive verb tenses','⏳',['L.4.1.B'],['progressive','verb tenses','past progressive','present progressive','future progressive'],
+'Progressive verbs show an action that is ongoing. Past: was/were + -ing. Present: am/is/are + -ing. Future: will be + -ing. Match the helping verb to the subject.',
+function(UP){var s=P(PSUB),v=P(PRG),t=P(['past','present','future']),pre,good,sub=s[0];
+ if(t==='past'){pre=P(['Yesterday at noon,','Last night at six,','This morning at eight,']);good=s[2]+' '+v[1]}
+ else if(t==='present'){pre=P(['Right now,','At this moment,','Look! Today,']);good=s[1]+' '+v[1]}
+ else{pre=P(['Tomorrow at noon,','Next week at this time,','Tonight at six,']);good='will be '+v[1]}
+ var wrongs=[];
+ if(t==='past'){wrongs=[[s[1]+' '+v[1],'“'+s[1]+'” is a present-tense helping verb. The time clue says it already happened.'],['will be '+v[1],'“will be” shows the future. The time clue says it already happened.'],[s[2]+' '+v[0],'Progressive verbs need the -ing ending.']]}
+ else if(t==='present'){wrongs=[[s[2]+' '+v[1],'“'+s[2]+'” shows the past. The time clue says it is happening now.'],['will be '+v[1],'“will be” shows the future. The time clue says it is happening now.'],[s[1]+' '+v[0],'Progressive verbs need the -ing ending.']]}
+ else{wrongs=[[s[1]+' '+v[1],'“'+s[1]+'” shows the present. The time clue says it has not happened yet.'],[s[2]+' '+v[1],'“'+s[2]+'” shows the past. The time clue says it has not happened yet.'],['will '+v[1],'After “will,” use “be” before the -ing word: “will be '+v[1]+'.”']]}
+ return O('Which choice completes the sentence?<br><b>'+pre+' '+sub+' ___ .</b>',good,'The time clue tells you the tense. '+(t==='past'?'Past progressive uses was/were + -ing.':t==='present'?'Present progressive uses am/is/are + -ing.':'Future progressive uses will be + -ing.'),wrongs)});
+
 RS('r_conv','Grammar, punctuation, and spelling','✏️',rc('L','1').concat(rc('L','2')).concat(rc('L','3')),['conventions','grammar','punctuation','capitalization','spelling','apostrophe','comma','editing','revising','homophone'],
 'Read each choice slowly and listen to how it sounds. Check the subject and verb, commas, apostrophes, and words that sound alike. Choose the one that follows the rule.',
 function(UP){var r=Math.random(),how;
@@ -2744,7 +2816,7 @@ var CHEER=['Quack-tastic!','Nice paddling!','You got it!','Splashing success!','
 /* ---------- Read aloud ---------- */
 function plain(h){return String(h).replace(/<span class="fr"><i>([^<]*)<\/i><i>([^<]*)<\/i><\/span>/g,' $1 over $2 ').replace(/<br\s*\/?>/g,'. ').replace(/<[^>]*>/g,' ').replace(/&nbsp;/g,' ').replace(/&gt;/g,' is greater than ').replace(/&lt;/g,' is less than ').replace(/&amp;/g,' and ').replace(/_{2,}/g,' blank ').replace(/×/g,' times ').replace(/÷/g,' divided by ').replace(/−/g,' minus ').replace(/ \+ /g,' plus ').replace(/ = /g,' equals ').replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{200D}]/gu,'').replace(/\s+/g,' ').trim()}
 var SP={id:0,tm:null,ok:(typeof speechSynthesis!=='undefined'&&typeof SpeechSynthesisUtterance!=='undefined')};
-var BUILD='2026-10-29 · reader switch r2';
+var BUILD='2026-11-16 · language codes r3';
 function buildTag(){return '<p class="tiny">Page version: '+BUILD+'</p>'}
 function gateOn(){return !window.__NOGATE&&DB.read!==false}
 function chunkText(t){var parts=t.match(/[^.!?]+[.!?]*\s*/g)||[t],out=[],cur='';parts.forEach(function(p){if((cur+p).length>170&&cur){out.push(cur);cur=p}else cur+=p});if(cur.trim())out.push(cur);return out}
@@ -2863,7 +2935,7 @@ var STRE=/^(persistent|watch|improving|resolved|mastered)$/i,CODERE=/^(?:\d{1,2}
 function parseReport(txt){var lines=txt.split(/\r?\n/).map(function(l){return l.trim()}).filter(Boolean),out=[],cur=null,pend='',mode='';
  lines.forEach(function(l){
   if(STRE.test(l)){pend=l;return}
-  var cl=l.replace(/^(?:TEKS|TEK|Standard)\s*[:\-]?\s+/i,'');if(CODERE.test(cl)){cur={code:cl,st:pend?pend.charAt(0).toUpperCase()+pend.slice(1).toLowerCase():'',m:0,desc:'',cause:'',assigned:''};out.push(cur);pend='';mode='';return}
+  var cl=l.replace(/^CCSS\.(?:ELA-LITERACY|MATH\.CONTENT)\./i,'').replace(/^(?:TEKS|TEK|Standard)\s*[:\-]?\s+/i,'').replace(/^([A-Za-z]{1,4})\./,function(a,b){return b.toUpperCase()+'.'});if(CODERE.test(cl)){cur={code:cl,st:pend?pend.charAt(0).toUpperCase()+pend.slice(1).toLowerCase():'',m:0,desc:'',cause:'',assigned:''};out.push(cur);pend='';mode='';return}
   if(!cur)return;pend='';
   var mm=l.match(/^missed\s+(\d+)/i);if(mm){cur.m=+mm[1];mode='meta';return}
   if(/^likely cause:/i.test(l)){cur.cause=l.replace(/^likely cause:\s*/i,'');mode='cause';return}
